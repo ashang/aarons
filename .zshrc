@@ -13,4 +13,4 @@ if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
   source /usr/share/zsh/manjaro-zsh-prompt
 fi
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/aaron/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
