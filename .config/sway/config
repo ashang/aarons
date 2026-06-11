@@ -59,7 +59,8 @@ input type:touchpad {
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
+output * bg $background fill
+
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -96,6 +97,26 @@ output eDP-1 resolution 2560x1600 position 4000 0
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+
+exec swayidle -w \
+          timeout 300 'swaymsg "output * power off"' \
+          resume 'swaymsg "output * power on"' \
+          timeout 600 '~/.local/bin/smart-suspend.sh' \
+          before-sleep 'swaylock -f'
+
+# DPMS, Display Power Management Signaling, a VESA standard
+# DPMS
+#-    On
+#-    Standby, HSync off, VSync on, dim, about 30W
+#-    Suspend, HSync on, VSync off, dim, about 5W
+#-    Off
+
+# swaymsg "output * dpms off"
+# swaymsg "output * dpms on": DPMS On with resume signal
+
+#- git-crypt: Transparently encrypts specific files in the Git repo using GPG or a symmetric key. (Files look encrypted in Git, but are plaintext in your working directory).
+#- git-secret: Similar to git-crypt, but specifically designed to hide files in plain sight within a Git repository using GPG.
+#- chezmoi: Has built-in support for encrypting individual files using GPG, age, or AWS KMS, and can template them based on the host machine.
 
 ### Key bindings
 #

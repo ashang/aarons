@@ -202,3 +202,23 @@ $bindsym Ctrl+$alt_mod+Delete exec $task_manager
 
 ## Launch // Emoji Picker ##
 $bindsym $alt_mod+Shift+e exec $emoji_picker
+
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+## Action // Move window to scratchpad ##
+#$bindsym $mod+Shift+minus move scratchpad, exec "waybar-signal scratchpad"
+bindsym $mod+Shift+minus move scratchpad, exec "pkill -x -RTMIN+7 waybar"
+
+# If there are multiple scratchpad windows, this command cycles through them.
+## Action // Toggle scratchpad ##
+$bindsym $mod+minus scratchpad show, exec "pkill -x -RTMIN+7 waybar"
+
+#$bindsym $mod+Shift+minus move scratchpad, exec "waybar-signal scratchpad"
+# using "waybar-signal" from #manjaro-sway-settings
+#❯ pacman -Qo /usr/bin/waybar-signal
+#❯ file /usr/bin/waybar-signal
+#/usr/bin/waybar-signal: Bourne-Again shell script, ASCII text executable
+
