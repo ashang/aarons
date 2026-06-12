@@ -59,7 +59,9 @@ input type:touchpad {
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg $background fill
+# generated background
+## set $background $HOME/.config/sway/generated_background.svg
+## output * bg $background fill
 
 # Example configuration:
 #
