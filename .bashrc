@@ -104,3 +104,8 @@ test -r $HOME/.aliases && source $HOME/.aliases
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+  debian_chroot=$(</etc/debian_chroot)
+fi
+
+PS1="#${debian_chroot:+($debian_chroot)} \D{W%V.%u} \t \l \s-\v \[\033[41;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]/\n\$ "
