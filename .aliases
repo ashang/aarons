@@ -1,0 +1,1359 @@
+# Alias definitions. a separate file
+# For BASH, source it explicitly, or linked to ~/.bash_aliases
+
+#set -u
+
+# NOT to set -e, otherwise a ctrl-C will exit the terminal
+
+# For dircolors-solarized
+# - https://github.com/seebi/dircolors-solarized
+
+# guideline 0: those not in command-not-found
+# guideline 1: standard cross-platform parameters, such as ps, tar.
+
+alias a='alias'
+
+#alias adb='adb wait-for-device'
+#alias adb='adb wait-for-device'
+alias adbw='adb wait-for-device'
+
+alias asrm='adb shell rm'
+alias adbw='adb wait-for-device'
+alias asrmr='adb shell rm -r'
+
+alias as='apt-cache search'
+
+alias bb='bitbake -v'
+
+alias c='clear'
+
+alias c='clear'
+alias chmod='chmod -v'
+alias crontab='crontab -i'
+
+alias cv='convmv -f gbk -t UTF-8 -r --notest'
+alias tou8='iconv -f gbk -t UTF-8'
+
+#alias curl="curl --user-agent 'noleak'"
+alias curl='curl -L -C -'
+
+## get top 10 shell commands:
+#alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+
+## Execute ¥kbd{./configure}
+#alias CO="./configure"
+
+## Execute ¥kbd{./configure --help}
+#alias CH="./configure --help"
+
+alias psmem='ps auxf | sort -nr -k 4'
+
+alias helpme='cht.sh --shell'
+
+# Recent installed packages
+alias rg="rg -."
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+alias repo="~/repo/repo"
+
+alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
+alias fix_term='echo -e "\033c"'            # fix_term:     Reset the conosle.  Similar to the reset command
+
+## Docker
+alias docker-pid="sudo docker inspect --format '{{.State.Pid}}'"
+alias docker-ip="sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias docker-clean='docker rm `docker ps -f status=exited --format {{.ID}}`'
+
+alias dbl='docker build'        # Build an image from a Dockerfile
+alias dcin='docker container inspect'        # Display detailed information on one or more containers
+alias dcls='docker container ls'        # List all the running docker containers
+alias dclsa='docker container ls -a'        # List all running and stopped containers
+alias dib='docker image build'        # Build an image from a Dockerfile (same as docker build)
+alias dii='docker image inspect'        # Display detailed information on one or more images
+alias dils='docker image ls'        # List docker images
+alias dipu='docker image push'        # Push an image or repository to a remote registry
+alias dirm='docker image rm'        # Remove one or more images
+alias dit='docker image tag'        # Add a name and tag to a particular image
+alias dlo='docker container logs'        # Fetch the logs of a docker container
+alias dnc='docker network create'        # Create a new network
+alias dncn='docker network connect'        # Connect a container to a network
+alias dndcn='docker network disconnect'        # Disconnect a container from a network
+alias dni='docker network inspect'        # Return information about one or more networks
+alias dnls='docker network ls'        # networks the engine daemon knows about, including those spanning multiple hosts
+alias dnrm='docker network rm'        # Remove one or more networks
+alias dpo='docker container port'        # List port mappings or a specific mapping for the container
+alias dr='docker container run'        # Create a new container and start it using the specified command
+alias drit='docker container run -it'        # Create a new container and start it in an interactive shell
+alias drm='docker container rm'        # Remove the specified container(s)
+alias drm!='docker container rm -f'        # Force the removal of a running container (uses SIGKILL)
+alias dst='docker container start'        # Start one or more stopped containers
+alias drs='docker container restart'        # Restart one or more containersa
+alias dsta='docker stop $(docker ps -q)'        # Stop all running containers
+alias dstp='docker container stop'        # Stop one or more running containers
+alias dtop='docker top'        # Display the running processes of a container
+alias dvi='docker volume inspect'        # Display detailed information about one or more volumes
+alias dvls='docker volume ls'        # List all the volumes known to docker
+alias dvprune='docker volume prune'        # Cleanup dangling volumes
+alias dxc='docker container exec'        # Run a new command in a running container
+alias dxcit='docker container exec -it'        # Run a new command in a running container in an interactive shell
+## alias:package-manager
+
+# `emerge` (Portage Enoch Merge) ... `em`, `es`, `esync`, `eb`, `er`, `ers`, `emfu`, `elip`
+# `cave` (Paludis Cave) ... `cave`, `cr`, `cui`, `cs`, `cli`
+# `apt` (Advanced Packaging Tool) ... `apt`, `aptfu`, `apti`, `apts`, `aptr`, `aptar`, `aptli`
+# `dpkg` (Debian Package) ... `dpkg`
+
+alias tee='tee -a'
+
+## alias:terraform
+alias t='terraform'
+alias tinit='terraform init'
+alias tplan='terraform plan'
+alias tapply='terraform apply'
+alias tfmt='terraform fmt'
+
+# alias code-minimap=minimap
+
+# general
+#a2# Execute \kbd{du -sch}
+alias da='du -sch'
+#a2# Execute \kbd{jobs -l}
+alias j='jobs -l'
+
+# compile stuff
+#a2# Execute \kbd{./configure}
+alias CO="./configure"
+#a2# Execute \kbd{./configure --help}
+alias CH="./configure --help"
+
+# console stuff
+#a2# Execute \kbd{mplayer -vo fbdev}
+alias cmplayer='mplayer -vo fbdev'
+#a2# Execute \kbd{mplayer -vo fbdev -fs -zoom}
+alias fbmplayer='mplayer -vo fbdev -fs -zoom'
+#a2# Execute \kbd{links2 -driver fb}
+alias fblinks='links2 -driver fb'
+
+# do we have GNU ls with color-support?
+if ls --help 2>/dev/null | grep -- --color= >/dev/null && [[ "$TERM" != dumb ]] ; then
+    #a1# execute \kbd{@a@}:\quad ls with colors
+    alias ls='ls -b -CF --color=auto'
+    #a1# execute \kbd{@a@}:\quad list all files, with colors
+    alias la='ls -la --color=auto'
+    #a1# long colored list, without dotfiles (@a@)
+    alias ll='ls -l --color=auto'
+    #a1# long colored list, human readable sizes (@a@)
+    alias lh='ls -hAl --color=auto'
+    #a1# List files, append qualifier to filenames \\&\quad(\kbd{/} for directories, \kbd{@} for symlinks ...)
+    alias l='ls -lF --color=auto'
+else
+    alias ls='ls -b -CF'
+    alias la='ls -la'
+    alias ll='ls -l'
+    alias lh='ls -hAl'
+    alias l='ls -lF'
+fi
+
+alias mdstat='cat /proc/mdstat'
+
+# generate alias named "$KERNELVERSION-reboot" so you can use boot with kexec:
+if [[ -x /sbin/kexec ]] && [[ -r /proc/cmdline ]] ; then
+    alias "$(uname -r)-reboot"="kexec -l --initrd=/boot/initrd.img-"$(uname -r)" --command-line=\"$(cat /proc/cmdline)\" /boot/vmlinuz-"$(uname -r)""
+fi
+
+# set up software synthesizer via speakup
+swspeak() {
+    if [ -x /usr/sbin/swspeak-setup ] ; then
+       setopt singlelinezle
+       unsetopt prompt_cr
+       export PS1="%m%# "
+       /usr/sbin/swspeak-setup $@
+     else # old version:
+        if ! [[ -r /dev/softsynth ]] ; then
+            flite -o play -t "Sorry, software synthesizer not available. Did you boot with swspeak bootoption?"
+            return 1
+        else
+           setopt singlelinezle
+           unsetopt prompt_cr
+           export PS1="%m%# "
+            nice -n -20 speechd-up
+            sleep 2
+            flite -o play -t "Finished setting up software synthesizer"
+        fi
+     fi
+}
+
+# make sure it is not assigned yet
+utf2iso() {
+    if isutfenv ; then
+        for ENV in $(env | command grep -i '.utf') ; do
+            eval export "$(echo $ENV | sed 's/UTF-8/iso885915/ ; s/utf8/iso885915/')"
+        done
+    fi
+}
+
+# get top 10 shell commands:
+alias top10='print -l ? ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+
+# truecrypt; use e.g. via 'truec /dev/ice /mnt/ice' or 'truec -i'
+alias truec='truecrypt --mount-options "rw,sync,dirsync,users,uid=1000,gid=users,umask=077,utf8" '
+
+# ssh -Y: force X11 tunneling through ssh
+# alias ssh='ssh -X -o VisualHostKey=yes -o ServerAliveInterval=30 -o StrictHostKeyChecking=yes'
+alias ssh='ssh -Y -o ServerAliveInterval=30 -o StrictHostKeyChecking=yes'
+
+## ignore ~/.ssh/known_hosts entries
+#alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
+
+#a2# ssh with StrictHostKeyChecking=no \\&\quad and UserKnownHostsFile unset
+alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
+alias insecscp='scp -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null"'
+
+# IP addresses
+alias digip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# your ip address, as seen by the Internet
+alias myip="curl -s checkip.dyndns.com | grep -Eo '[0-9\.]+'"
+alias pbip="curl -s checkip.dyndns.com | sed 's/[^0-9\.]//g'"
+
+#alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+#alias ips="\ip a | \grep -o -P '\(\d+\.\d+\.\d+\.\d+\)/\(16|24\)'"
+alias ips="ip a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+alias whois="whois -h whois-servers.net"
+
+alias wt='curl http://wttr.in/'
+# . ~/.bashrc.d/wttr.bash beijing
+
+# Xterm resizing-fu.
+# Based on http://svn.kitenet.net/trunk/home-full/.zshrc?rev=11710&view=log (by Joey Hess)
+alias hide='echo -en "\033]50;nil2\007"'
+alias tiny='echo -en "\033]50;-misc-fixed-medium-r-normal-*-*-80-*-*-c-*-iso8859-15\007"'
+alias small='echo -en "\033]50;6x10\007"'
+alias medium='echo -en "\033]50;-misc-fixed-medium-r-normal--13-120-75-75-c-80-iso8859-15\007"'
+alias default='echo -e "\033]50;-misc-fixed-medium-r-normal-*-*-140-*-*-c-*-iso8859-15\007"'
+alias large='echo -en "\033]50;-misc-fixed-medium-r-normal-*-*-150-*-*-c-*-iso8859-15\007"'
+alias huge='echo -en "\033]50;-misc-fixed-medium-r-normal-*-*-210-*-*-c-*-iso8859-15\007"'
+alias smartfont='echo -en "\033]50;-artwiz-smoothansi-*-*-*-*-*-*-*-*-*-*-*-*\007"'
+alias semifont='echo -en "\033]50;-misc-fixed-medium-r-semicondensed-*-*-120-*-*-*-*-iso8859-15\007"'
+
+# Trim new lines and copy to clipboard
+alias copy='xclip -selection clipboard'
+alias yank='xclip -selection clipboard -o'
+
+# Mac style pbcopy and pbpaste on linux.
+command -v xsel 1>/dev/null &&
+  alias pbcopy='xsel --clipboard --input' &&
+  alias pbpaste='xsel --clipboard --output'
+
+alias tcs='ctags -R --fields=+lS . ; cscope -Rbq'
+
+alias gdb='gdb -q'
+
+alias h='history'
+alias hig='history | grep'
+alias ht='history | tail'
+alias httpd='python3 -m http.server'
+
+alias indent='indent -linux'
+alias info='info --vi-keys'
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do alias "$method"="lwp-request -m '$method'"; done
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 10'"
+
+alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# ROT13-encoding-decoding
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do alias "$method"="lwp-request -m '$method'"; done
+
+#alias wget="wget -U 'noleak'"
+#alias wget="wget --no-check-certificate -c --content-disposition'
+
+# HTTP request sent, awaiting response... 405 Method Not Allowed
+#2021-05-26 18:27:59 ERROR 405: Method Not Allowed.
+alias wget="wget -U 'User-Agent' -c --content-disposition"
+#alias wget="wget -U '' -c --content-disposition"
+#alias wget="wget -U ' ' -c --content-disposition"
+#alias wget="wget -U '\ ' -c --content-disposition"
+
+alias whence='type -a'                        # where, of a sort
+alias where="type -all"
+
+# which for debianutils vs GNU
+which --version 2>/dev/null | \grep -q GNU && alias which='(alias; declare -f) | which -i --read-functions'
+
+alias which='alias | which -a'
+#alias which="type -path"
+#alias which='alias | which --tty-only --read-alias --show-dot --show-tilde'
+
+# general
+#a2# Execute \kbd{du -sch}
+alias da='du -sch'
+#a2# Execute \kbd{jobs -l}
+alias j='jobs -l'
+
+# compile stuff
+#a2# Execute \kbd{./configure}
+alias CO="./configure"
+#a2# Execute \kbd{./configure --help}
+alias CH="./configure --help"
+
+# listing stuff
+#a2# Execute \kbd{ls -lSrah}
+alias dir="ls -lSrah"
+#a2# Only show dot-directories
+alias lad='ls -d .*(/)'                # only show dot-directories
+#a2# Only show dot-files
+alias lsa='ls -a .*(.)'                # only show dot-files
+
+#a2# Only files with setgid/setuid/sticky flag
+alias lss='ls -l *(s,S,t)'             # only files with setgid/setuid/sticky flag
+#a2# Only show 1st ten symlinks
+alias lsl='ls -l *(@)'                 # only symlinks
+#a2# Display only executables
+alias lsx='ls -l *(*)'                 # only executables
+#a2# Display world-{readable,writable,executable} files
+alias lsw='ls -ld *(R,W,X.^ND/)'       # world-{readable,writable,executable} files
+#a2# Display the ten biggest files
+alias lsbig="ls -flh *(.OL[1,10])"     # display the biggest files
+#a2# Only show directories
+alias lsd='ls -d *(/)'                 # only show directories
+#a2# Only show empty directories
+alias lse='ls -d *(/^F)'               # only show empty directories
+#a2# Display the ten newest files
+alias lsnew="ls -rl *(D.om[1,10])"     # display the newest files
+#a2# Display the ten oldest files
+alias lsold="ls -rtlh *(D.om[1,10])"   # display the oldest files
+#a2# Display the ten smallest files
+alias lssmall="ls -Srl *(.oL[1,10])"   # display the smallest files
+
+alias rpg='rpm -qa | grep'
+
+# debian stuff
+if [[ -r /etc/debian_version ]] ; then
+  #a3# Execute \kbd{apt-cache search}
+  alias acs='apt-cache search'
+  #a3# Execute \kbd{apt-cache show}
+  alias acsh='apt-cache show'
+  #a3# Execute \kbd{apt-cache policy}
+  alias acp='apt-cache policy'
+  #a3# Execute \kbd{apt-get dist-upgrade}
+  alias adg="apt-get dist-upgrade"
+  #a3# Execute \kbd{apt-get install}
+  alias agi="apt-get install"
+  #a3# Execute \kbd{aptitude install}
+  alias ati="aptitude install"
+  #a3# Execute \kbd{apt-get upgrade}
+  alias ag="apt-get upgrade"
+  #a3# Execute \kbd{apt-get update}
+  alias au="apt-get update"
+  #a3# Execute \kbd{dpkg-buildpackage}
+  alias dbp='dpkg-buildpackage'
+  #a3# Execute \kbd{grep-excuses}
+  alias ge='grep-excuses'
+
+  # debian upgrade
+  #f3# Execute \kbd{apt-get update \&\& }\\&\quad \kbd{apt-get dist-upgrade}
+  upgrade() {
+      emulate -L zsh
+      if [[ -z $1 ]] ; then
+          $SUDO apt-get update
+          $SUDO apt-get -u upgrade
+      else
+          ssh $1 $SUDO apt-get update
+          # ask before the upgrade
+          local dummy
+          ssh $1 $SUDO apt-get --no-act upgrade
+          echo -n 'Process the upgrade?'
+          read -q dummy
+          if [[ $dummy == "y" ]] ; then
+              ssh $1 $SUDO apt-get -u upgrade --yes
+          fi
+      fi
+  }
+
+  alias uirfs='sudo update-initramfs -u'
+
+  #a1# Take a look at the syslog: \kbd{\$PAGER /var/log/syslog}
+  alias llog="${PAGER:-} /var/log/syslog"     # take a look at the syslog
+  #a1# Take a look at the syslog: \kbd{tail -f /var/log/syslog}
+  alias tlog="tail -f /var/log/syslog"    # follow the syslog
+
+fi
+
+# alias tail='tail -f'
+# In SSH, tmux status bar color may be incorrect without setting TERM to screen-256color.
+
+#alias tmux="\tmux -2 new-session -s $(hostname -s)-$(date +%s)"
+#alias tmux="\tmux -2 new-session -s $HOSTNAME-$(date +%s)"
+alias tad='\tmux a -d'
+
+hash gsed &>/dev/null && alias sed='gsed'
+
+type multitail &>/dev/null && alias tail='multitail -c'
+#alias tmars='telnet 210.77.17.19 1012'
+
+#if type pgrep &>/dev/null; then xxx; fi
+
+# PostgreSQL
+alias start-psql="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+alias stop-psql="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+
+#bsd
+export PACKAGEROOT=ftp://ftp.freebsdchina.org
+# export PACKAGESITE
+
+alias scu='systemctl --user'
+alias jctl='journalctl -p 3 -xb'
+alias journ='sudo journalctl -b -f'
+
+alias poweroff='sudo systemctl poweroff'
+alias suspend='sudo systemctl suspend'
+alias su-='su -p -'
+
+alias strc="awk '!/^ *#/ && NF'"
+
+type md5sum &>/dev/null || alias md5sum='md5'
+
+alias tb="(exec 3<>/dev/tcp/termbin.com/9999; cat >&3; cat <&3; exec 3<&-)"
+alias tb='nc termbin.com 9999'
+
+# exec 3<>/dev/tcp/termbin.com/9999       # create FD
+# [ -t 0 ] && echo -en $* >&3 || cat >&3  # send it
+# cat <&3                                 # get the url
+# exec 3<&-                               # remove FD (clean up)
+# mknod /dev/tcp c 30 36
+# mknod /dev/udp c 30 39
+
+alias dos2unix='perl -pi -e "tr/\r//d"'
+alias unix2dos='perl -pi -e "s/\n$/\r\n/g"'
+alias mac2unix='perl -pi -e "tr/\r/\n/d"'
+
+alias cg='grep -in --color -I'
+
+alias gcc='gcc -v'
+alias g++='g++ -v'
+alias clang='clang -v'
+alias clang++='clang++ -v'
+
+#alias expemerge="ACCEPT_KEYWORDS=\"~x86\" emerge"
+# with params?: scp -P 1222 $* 120.77.17.19
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias cd.="cd .."
+alias cd..="cd .."
+alias cd-='cd -'
+alias cdt='cd $(mktemp -d)'
+
+alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+
+alias CO='./configure'
+alias CH='./configure --help'
+
+alias chmod='chmod -v'
+
+##### alias curl="curl --user-agent 'noleak'"
+#####
+alias curl='curl -L -C -'
+alias ch='curl -D- -o/dev/null'
+alias co='curl -O'
+alias perf='curl -s -w "\n%{time_connect} + %{time_starttransfer} = %{time_total}\n"'
+
+alias dd="dd bs=8M status=progress"
+alias debug_on="sed -i 's/^\/\/#define LOG_NDEBUG 0/#define LOG_NDEBUG 0/g'"
+alias debug_off="sed -i 's/^#define LOG_NDEBUG 0/\/\/#define LOG_NDEBUG 0/g'"
+# debug_on MediaExtractor.cpp
+# debug_off *.*
+
+alias dl='dpkg -L'
+alias dlg='dpkg -l | grep'
+alias dlc='dlocate -i'
+alias dq='diff -qur --no-dereference'
+alias ds='dpkg -s'
+
+# --all
+# --decorate
+# --format
+# --oneline
+# --pretty
+
+alias dunc='dunstctl close'
+
+alias diff='diff -u -x.git'
+#    which colordiff &>/dev/null && alias diff='colordiff'
+command -v colordiff &>/dev/null && alias diff='colordiff -u -x.git'
+alias dmesg='clear; dmesg -eL -w'
+
+alias du.='du --human-readable --max-depth=1 | sort -hr'
+alias d1='du --max-depth=1'
+
+alias eng='env | grep -i'
+
+# fd name in arch distros
+hash fd &>/dev/null && alias fd='fd -HL -E.git'
+hash fd &>/dev/null && alias fdl='fd -HLl -E.git'
+# fd name in deb distros, package name is fd-find
+hash fdfind &>/dev/null && alias fd='fdfind -HI -E.git'
+hash fdfind &>/dev/null && alias fdl='fdfind -HIl -E.git'
+
+function fde() {
+  if hash fdfind &>/dev/null; then
+    fdfind "$1" /sbin /bin /usr/sbin /usr/bin
+  else
+    find /sbin /bin /usr/sbin /usr/bin | grep "$1"
+  fi
+}
+
+# search for a string in all subdirectories, matched lines will be printed together with filename and line number.
+alias finds='find . -regex ".*\.\(hh\|cc\|go\|rs\|cpp\|c\|java\|aidl\|py\|pl\|pm\)" | xargs grep -Hn'
+# case insensitive search.
+alias findsi='find . -regex ".*\.\(hh\|cc\|go\|rs\|cpp\|c\|java\|aidl\|py\|pl\|pm\)" | xargs grep -Hni'
+
+# fdfind does better
+alias fn='find -iname'
+alias foot='foot --title="bigfoot"'
+
+alias frm="find . -iname '*.DS_Store' -type f -ls -delete"
+alias fsg='find . -name .git -prune -o -print0 | xargs -0 grep -H -I -s --colour=auto'
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# Git
+alias g='git status -sb'
+alias g='git status --ignore-submodules=dirty'
+alias ga='git add -u --patch'
+alias ga='git add -A'
+alias gap="git add --patch"
+alias gb='git branch -vv'
+alias gc='git checkout --progress'
+alias gca='git commit --amend'
+alias gcl='git clone -v'
+alias gcp='git cherry-pick'
+alias gcpe='git cherry-pick --edit'
+alias gcv='git commit --no-verify'
+alias gd='git diff --patience'
+alias gd='git diff --patience --ignore-space-change --ignore-submodules'
+alias gdc='git diff --cached -w'
+alias gdv='git diff -v'
+alias gdw='git diff --no-ext-diff --word-diff'
+alias gf='git fetch -a -p'
+alias gg='git grep -a -i'
+alias gg='git clone --depth 1'
+alias gi="git commit -v"
+alias gm="git checkout main"
+alias gmb='git merge-base'
+alias gP='git push'
+alias gp='git pull'
+alias gpa='for i in `git remote | grep -v upstream`; do echo; echo To remote ${i-} ...; echo; git push ${i-};done'
+# alias gpr='git pull --rebase --recurse-submodules'
+alias gpr='git pull --rebase --stat'
+alias gr='git remote -v'
+alias grc='git rebase --continue'
+alias gri='git rebase -i'
+alias grs='git rebase --skip'
+alias grss='git remote show origin'
+alias gsl='git stash list'
+alias gss='git stash save'
+alias gup='git pull --rebase --prune && git submodule update --init --recursive'
+# Undo a `git push` ##NO@@##
+alias undopush="git push -f origin HEAD^:main"
+# No ghostscript
+alias gs='git show'
+alias gss='git show --stat'
+# git config --local status.showUntrackedFiles no
+alias gst='git status -uno --ignore-submodules=dirty'
+
+hash pcmanfm &>/dev/null && alias pcmanfm='pcmanfm -d --desktop'
+hash pcmanfm-qt &>/dev/null && alias pcmanfm='pcmanfm-qt'
+
+#if [ "Darwin" = "$(uname)" ]; then
+if [[ "Darwin" == "$(uname)" ]]; then
+  #alias ps='ps aux'
+  #alias psg='\ps -Af | grep'
+  #alias psg='ps aux |grep -v grep |grep -i';
+  #alias cp='cp -pr -i'
+  alias cp='\cp -a -i -v'
+  alias psg='\ps aeux | grep'
+  alias w='w -i'    # sorted by idle time.
+  alias who='who -u'
+else # assume Linux
+  #alias cp='nocorrect cp'         # no spelling correction on cp
+  # space and time efficient cp
+  alias cp='cp -ai --reflink=auto --sparse=always'
+
+# -a = -pPR
+#  -R If source_file designates a directory, cp copies the directory and the entire subtree connected at that point.  If the source_file ends in a /, the
+#     contents of the directory are copied rather than the directory itself.  This option also causes symbolic links to be copied, rather than indirected
+#     through, and for cp to create special files rather than copying them as normal files.  Created directories have the same mode as the corresponding
+#     source directory, unmodified by the process' umask.
+#
+#     In -R mode, cp will continue copying even if errors are detected.
+#
+#     Note that cp copies hard-linked files as separate files.  If you need to preserve hard links, consider using tar(1), cpio(1), or pax(1) instead.
+
+  alias psg='\ps afux | grep'
+  #\ip -c a &>/dev/null && alias ip='ip -c=auto'
+  alias ip='ip --color=auto'
+  alias ifconfig="ip a s"
+  alias df='df -T -x tmpfs -x aufs -x devtmpfs -x overlay'
+  alias w='w -s'    # short format, no login time, JCPU or PCPU times.
+fi
+
+hash perl-rename &>/dev/null && alias prename='perl-rename'
+
+# Do NOT need this, otherwise the local venv one fails
+# alias pip='python3 -m pip'
+
+# Cleanup orphaned packages
+if [ -x "$(command -v pacman)" ]; then
+  alias cleanup="sudo pacman -Rns $(pacman -Qtdq)" # Cleanup orphaned packages
+  alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'
+  alias rmpkg='sudo pacman -Rdd'
+fi
+
+# Get fastest mirrors
+alias mirror='sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist'
+alias mirrord='sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist'
+alias mirrors='sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist'
+alias mirrora='sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist'
+alias pacrepo='sudo reflector -l 20 -f 10 --save /etc/pacman.d/mirrorlist'
+
+[ -x "$(command -v apt)" ] &&            alias pkgb='sudo apt build-deb'
+[ -x "$(command -v apt)" ] &&            alias pkgc='sudo dpkg-reconfigure'
+[ -x "$(command -v apt)" ] &&            alias pkgd='apt-get download'
+[ -x "$(command -v apt)" ] &&            alias pkge='sudo apt edit-sources'
+[ -x "$(command -v apt)" ] &&            alias pkgg='dpkg -l | grep'
+[ -x "$(command -v pacman)" ] &&        alias pkgg='pacman -Q | grep'
+[ -x "$(command -v apt)" ] &&            alias pkgh='cat /var/log/apt/history.log | less'
+[ -x "$(command -v apt)" ] &&            alias pkgi='sudo apt install'
+[ -x "$(command -v pacman)" ] &&        alias pkgi='sudo pacman -S'
+[ -x "$(command -v apt)" ] &&              alias pkgl='dpkg -L'
+[ -x "$(command -v pacman)" ] &&        alias pkgl='pacman -Ql'
+[ -x "$(command -v apt)" ] &&              alias pkgo='dpkg -S'
+[ -x "$(command -v pacman)" ] &&        alias pkgo='pacman -Qo'
+[ -x "$(command -v apt)" ] &&              alias pkgq='dpkg -s'
+[ -x "$(command -v pacman)" ] &&        alias pkgq='pacman -Qi'
+[ -x "$(command -v apt)" ] &&              alias pkgr='sudo apt autoremove --purge'
+[ -x "$(command -v pacman)" ] &&        alias pkgr='sudo pacman -Rs'
+[ -x "$(command -v apt)" ] &&              alias pkgs='apt-cache search'
+[ -x "$(command -v pacman)" ] &&        alias pkgs='pacman -Ss'
+[ -x "$(command -v apt)" ] &&              alias pkgu='sudo apt update && sudo apt disk-upgrade'
+[ -x "$(command -v pacman)" ] &&        alias pkgu='sudo pacman -Syu'
+
+alias pqdt='pacman -Qdtv'
+alias auru='yay -Syua --noconfirm'
+[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
+
+alias xt='xfce4-terminal --maximize --dynamic-title-mode=after --disable-server &'
+# Byzanz requires a 24bpp or 32bpp depth for recording.
+#alias xx='startx -- -nolisten tcp -depth 24'
+alias xx='startx -- -nolisten tcp -depth 24 -extension GLX'
+alias xfb='startx -- -nolisten tcp -fbbpp 24'
+alias x1='startx -- :1 -depth 32'
+alias x2='startx -- :2 -depth 32'
+alias yum='yum -v -y --color=auto'
+
+alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
+
+alias clean='echo -n "Really clean this directory?";
+    read yorn;
+    if test "$yorn" = "y"; then
+       rm -f \#* *~ .*~ *.bak .*.bak  *.tmp .*.tmp core a.out;
+       echo "Cleaned.";
+    else
+       echo "Not cleaned.";
+    fi'
+
+function setenv () {
+  export $1="$2"
+}
+
+function mkcp () {
+  #cp $(realpath "$1") ~/$(date +%s)$(echo $(realpath "$1" | tr ' /' '.' ))
+  for f in "$@"; do
+    cp -av $(realpath "$f") ~/$(date +%s)$(echo $(realpath "$f" | tr ' /' '.' ))
+  done
+}
+
+function add_alias ()
+{
+   local name=$1 value="$2"
+   echo alias $name=\'$value\' >>~/.aliases
+   eval alias $name=\'$value\'
+   alias $name
+}
+
+# "repeat" command.  Like:
+#    repeat 10 echo foo
+function repeat ()
+{
+    local count="$1" i;
+    shift;
+    for i in $(_seq 1 "$count");
+    do
+        eval "$@";
+    done
+}
+
+# Subfunction needed by 'repeat'.
+function _seq ()
+{
+    local lower upper output;
+    lower=$1 upper=$2;
+
+    if [ $lower -ge $upper ]; then return; fi
+    while [ $lower -lt $upper ];
+    do
+    echo -n "$lower "
+        lower=$(($lower + 1))
+    done
+    echo "$lower"
+}
+
+alias grubup='sudo update-grub'
+alias tarnow='tar -acf '
+
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+
+alias hw='hwinfo --short'
+
+# command -v htop &>/dev/null && alias top=htop
+
+alias big="expac -H M '%m\t%n' | sort -h | nl"                                  # Sort packages in MB
+
+# Replace ls with exa
+if hash exa &>/dev/null; then
+  alias exa='exa -B' &&\
+  alias ls='exa --group-directories-first --icons' &&\
+  alias la='exa -a --color=auto --group-directories-first --icons'  &&\
+  alias ll='exa -l --color=auto --group-directories-first --icons'  &&\
+  alias l='exa -l --color=auto --group-directories-first --icons'  &&\
+  alias l.="exa -a | \grep -E '^\.'"    # show only dotfiles
+  alias lT='exa -aT --color=auto --group-directories-first --icons --level=3' &&\
+  # exa --oneline --reverse --sort=size
+  # exa --long --header --inode --git
+  # exa --long --tree --level=3
+# Size sort order opposite to \ls -lS
+  alias lS='exa -al --color=auto --group-directories-first --sort=size --reverse' &&\
+  alias lSr='exa -al --color=auto --group-directories-first --sort=size' &&\
+# Time sort order same to \ls -t
+  alias lt='exa -al --color=auto --group-directories-first --sort=time' &&\
+  alias ltr='exa -al --color=auto --group-directories-first --sort=time --reverse' &&\
+
+# -sold same to \ls -t
+  alias lt='exa -l -sold'
+  alias ltr='exa -l -snew'
+  alias lta='exa -la -sold'
+  alias ltra='exa -la -snew'
+  alias ldir='exa -lD'
+else
+  alias lf='ls . -rt1 | tail -1'
+  alias ldir="\ls -Al | grep ^d"
+  alias lh='ls -A | grep -E "^\."'
+  alias lt='ls -lt'
+  alias lta='ls -ltA'
+  alias ls='ls --color=auto'
+  alias l='ls -CF'
+  alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
+  alias l='ls -lAv'   # show long listing but no hidden dotfiles except "."
+  alias l.='ls -alv --ignore=..'   # show long listing of all except ".."
+  alias l='ls -ah --color'
+  alias l='ls -CF'
+  #-A, --almost-all			do not list implied . and ..
+  alias l.='ls -lAv'   # show long listing of all except ".."
+  alias la='ls -A'
+  alias lf="ls -tr1 . | tail -1"
+  alias ll='ls -CFlv'
+
+  alias lS='ls -lS'
+  alias lSr='ls -lSr'
+  alias lt='ls -lt'
+  alias lt='ls -ltA'
+  alias lta='ls -lta'
+  alias ltr='ls -ltr'
+  alias ltr='ls -ltAr'
+  alias ltra='ls -ltra'
+fi
+
+# Usage: kotin_run foo.kt <args-list> to compile foo.kt into foo.kt.jar and run it with the optional <args-list>
+ktr () { kotlinc "$1" -include-runtime -d "$1".jar && java -jar "$1".jar "${@:2}"; }
+
+# Usage: ghurl <filename>, will open the file on github.com. Respects branch name and repo name.
+# Filename can contain a fragment like "#L11" to highlight line 11 or "L22-L34" to hightlight from
+# line 22 to line 34.
+function ghurl()
+{
+  domain='https://github.com' &&
+  # Get the repo name and remove ".git" from the end
+  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+  # Fallback to main branch
+  remoteBranch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo 'main') &&
+  # Remove origin prefix
+  remoteBranch=${remoteBranch#origin/} &&
+  currentDir=$PWD &&
+  gitTopLevel=$(git rev-parse --show-toplevel) &&
+  # Remove git base directory from the path.
+  pathRelativeToBaseRepo=${currentDir#${gitTopLevel}}/${1} &&
+  # echo Remote branch is ${remoteBranch} &&
+  # echo current Dir is ${currentDir} &&
+  # echo gitTopLevel is ${gitTopLevel} &&
+  # echo pathRelativeToBaseRepo is ${pathRelativeToBaseRepo}
+  url=${domain}/${repo}/tree/${remoteBranch}/${pathRelativeToBaseRepo} &&
+  # echo url is ${url} &&
+  open "${url}"
+}
+
+function stargazer()
+{
+  domain='https://starcharts.herokuapp.com/' &&
+  # Get the repo name and remove ".git" from the end
+  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+  url=${domain}/${repo}
+  open "${url}"
+}
+
+# Usage: ghpr <pr number>, will open the pull request on github.com. Respects repo name.
+# GitHub uses a single counter for pull requests and issues, so, even an issue can open via this mechanism.
+function ghpr()
+{
+  domain='https://github.com' &&
+  # Get the repo name and remove ".git" from the end
+  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+  url=${domain}/${repo}/pull/${1} &&
+  # echo url is ${url} &&
+  open "${url}"
+}
+
+alias ghpr='gh pr --me --link'
+alias ghissues="open https://github.com/issues/assigned"
+
+# Tree
+if [ ! -x "$(command -v tree 2>/dev/null)" ]
+then
+  alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+fi
+
+alias tj="tre -a -j"
+
+# alias gemup='sudo gem update --system; sudo gem update'
+# ERROR:  Your RubyGems was installed trough APT, and upgrading it through RubyGems
+# itself is unsupported. If you really need the latest version of RubyGems (tip:
+# you usually don't), then you need to install RubyGems (and Ruby) manually,
+# maybe using tools like ruby-install, rvm, etc.
+# Updating installed gems
+# Updating abbrev
+# Fetching abbrev-0.1.1.gem
+# Successfully installed abbrev-0.1.1
+# Parsing documentation for abbrev-0.1.1
+# Installing ri documentation for abbrev-0.1.1
+# Done installing documentation for abbrev after 0 seconds
+# Parsing documentation for abbrev-0.1.1
+# Done installing documentation for abbrev after 0 seconds
+# Updating benchmark
+# Fetching benchmark-0.2.1.gem
+# Successfully installed benchmark-0.2.1
+# Parsing documentation for benchmark-0.2.1
+# Installing ri documentation for benchmark-0.2.1
+# Done installing documentation for benchmark after 0 seconds
+# Parsing documentation for benchmark-0.2.1
+# Done installing documentation for benchmark after 0 seconds
+# Updating bigdecimal
+# Fetching bigdecimal-3.1.4.gem
+# Building native extensions. This could take a while...
+# Successfully installed bigdecimal-3.1.4
+# Parsing documentation for bigdecimal-3.1.4
+# Installing ri documentation for bigdecimal-3.1.4
+# Done installing documentation for bigdecimal after 0 seconds
+# Parsing documentation for bigdecimal-3.1.4
+# Done installing documentation for bigdecimal after 0 seconds
+# Updating bundler
+# Fetching bundler-2.4.15.gem
+# ERROR:  While executing gem ... (Errno::ENOENT)
+#     No such file or directory @ dir_s_mkdir - /usr/local/bin
+
+# fzf {{{
+if test -d $HOME/.fzf && [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
+
+  # Auto-completion
+  [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
+  # Key bindings
+  ########source "$HOME/.fzf/shell/key-bindings.bash"
+fi
+
+####[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# fzf }}}
+
+# Command list aggregator.
+# Uses fuzzy search to allow searching of commamnds list.
+function do_command(){
+    unset MY_FIND_COMMAND
+    COMFILE="$METACFG_LOCATION/commands.md"
+    if [ -z "$1" ]; then
+        MY_FIND_COMMAND=`(get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf`
+    else
+        MY_FIND_COMMAND=`(get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf -q "$1" -1 -0`
+    fi
+    ${DRYRUN} eval $MY_FIND_COMMAND
+}
+
+# Alias to shorten call to do_command
+# "doco" shortened "do"-"co"mmand and a wordplay for the Japanese "doko"
+alias doco='do_command'
+
+# docker run
+function docker_run(){
+    unset DOCKOPTS IMAGENAME COMMANDS DOCKHOST ABODE
+    # Identify image name through selection from the list of images returned by
+    # 'docker image ls' command.
+    if [ -z "$1" ]; then
+        IMAGENAME=`docker image list | awk '{if(NR>1)print}'| fzf | awk '{print $1}'`
+    else
+        IMAGENAME=`docker image list | awk '{if(NR>1)print}'| fzf -q $1 -1 -0 | awk '{print $1}'`
+    fi
+
+    # Remote registry images results to empty IMAGENAME, user probably pressed
+    # <Esc> during the selection. This means a new image from remote registry.
+    # In such case, use the value initially provided by the user.
+    if [ -z "$IMAGENAME" ]; then
+        # revert value to original argument
+        IMAGENAME=$1
+    fi
+
+    # Fetch run command configuration through the docker.abode.md file.
+    COMFILE="$METACFG_LOCATION/docker.abode.md"
+    if [ -f "$COMFILE" ]; then
+        if [ -z "$IMAGENAME" ]; then
+            ABODE=`get-stored-command-lines $COMFILE | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0`
+        else
+            ABODE=`get-stored-command-lines $COMFILE | grep $IMAGENAME | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0`
+        fi
+    fi
+
+    # Found a corresponding configuration, tokenize it and set to approriate variables.
+    if [ ! -z "$ABODE" ]; then
+        ABODE=$(echo $ABODE | tr -s " ")
+        OLDIFS=$IFS
+        IFS='|'
+        tokens=($ABODE)
+        IFS=$OLDIFS
+        DOCKHOST=$(echo ${tokens[0]} | tr -s " ")
+        IMAGENAME=$(echo ${tokens[1]} | tr -s " ")
+        DOCKOPTS=${tokens[2]}
+        COMMANDS=${tokens[3]}
+    fi
+
+    # Append run configuration from docker.abode and default.
+    DOCKOPTS=$(echo "$DOCKOPTS $DOCKER_DEFOPTIONS" | tr -s " ")
+    if [ ! -z "$DOCKHOST" ]; then
+        # do not use docker generated hostname
+        DOCKOPTS=$(echo "$DOCKOPTS -h $DOCKHOST -e META_IMAGEREF=$IMAGENAME")
+    else
+        # set META_IMAGEREF (used in PS1 identifier) same as image name
+        DOCKOPTS=$(echo "$DOCKOPTS -e META_IMAGEREF=$IMAGENAME")
+    fi
+    DOCKOPTS=$(echo "$DOCKOPTS -w `pwd`")
+    ${DRYRUN} eval docker run $DOCKOPTS $IMAGENAME $COMMANDS
+}
+
+alias cic='bind "set completion-ignore-case on"' # cic: Make tab-completion case-insensitive
+
+# Go
+alias sv='source ~/.config/vim/scripts/gb.bash sv'
+#source ~/.config/vim/branch_prompt.sh
+
+#alias vi="\vim -u ${XDG_CONFIG_HOME:-$HOME/.config}/vim/vimrc -p"
+
+alias vd="vimdiff"
+alias vim="/usr/bin/vim -p"
+
+#if hash nvim &>/dev/null; then
+if type nvim &>/dev/null; then
+  alias vi='nvim -p'
+  alias vd='\nvim -d'
+  #alias vim='nvim -p'
+fi
+
+# ls, color, etc.
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+#-F, --classify				append indicator (one of */=>@|) to entries
+#-F      Display a slash (`/') immediately after each pathname that is a directory,
+#		an asterisk (`*') after each that is executable,
+#		an at sign (`@') after each symbolic link,
+#		an equals sign (`=') after each socket,
+#		a percent sign (`%') after each whiteout, and
+#		a vertical bar (`|') after each that is a FIFO.
+
+alias N='&>/dev/null'
+
+alias glg='git log --date=iso --graph --format="%C(yellow) %h %C(cyan) %cd %C(auto,bold) %an %Creset %Cgreen %d %C(auto,blue) %s %Creset"'
+alias glp='git log -p'
+alias glp='git log --stat -p'
+alias glss='git log --stat --summary'
+
+#grep: warning: GREP_COLOR='1;37;45' is deprecated; use GREP_COLORS='mt=1;37;45'
+# Never use 'grep --color=always', control characters apply!
+# alias grep='GREP_COLORS="mt=1;37;45" LANG=C \grep -E -s -I --color=auto --exclude-dir=_site --exclude-dir=.git'
+alias g='grep --color=auto'
+alias g='GREP_COLORS="mt=1;37;45" LANG=C \grep -E -s -I --color=auto --exclude-dir={.cache,.git,.idea,.tox,_site}'
+#alias grep='grep --colour=auto'
+alias grep='grep --exclude-dir=.git -s -I --colour'
+#alias fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
+alias fgrep='grep -F'
+#alias egrep='\grep -P --color=auto'
+#alias egrep='grep -E'
+alias egrep='grep -P'
+
+alias fgrep='fgrep --colour=auto'
+alias grpe=grep
+alias gerp=grep
+
+alias hig='history | grep'
+alias info='info --vi-keys'
+
+type locate &>/dev/null && alias lc='locate -i'
+
+alias jo="jobs -l"
+alias jq='jq -C -S'
+alias ka="killall"
+
+##export LESSHISTFILE=/dev/null
+alias less='less -r'                          # raw control characters
+#alias less='less -FSRXc'                    # Preferred 'less' implementation
+#export LESS="-R"
+export LESS="-eiRMX"
+alias less='less -R'                    # raw control characters, coloring, etc.
+
+# alias lsblk='lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,UUID'
+alias lsblk='lsblk -o NAME,MAJ:MIN,RM,TYPE,FSTYPE,SIZE,MOUNTPOINT,LABEL,UUID'
+
+alias m=mutt
+
+# List all make targets.
+alias make_list="make -qp | sed -n -e 's/^\([^.#[:space:]][^:[:space:]]*\): .*/\1/p'"
+
+#[ which colormake >/dev/null 2>&1 ] && alias make=colormake
+# [ command -v colormake >/dev/null 2>&1 ] && alias make=colormake
+command -v colormake &>/dev/null && alias make=colormake
+
+hash nproc &>/dev/null && alias make="make -j$(expr $(nproc) / 4 + 2)"
+
+alias mm="make menuconfig"
+
+alias moer=more
+alias mpv="mpv --audio-display=no"
+alias ms='gpm -m /dev/psaux -t imps2'
+alias mutt='mutt -y'
+alias mv='mv -i'
+
+alias nano='nano -i -m -w -B -F -L -xcSr68'
+type neomutt &>/dev/null && alias m='neomutt'
+
+alias netstat='netstat -an'
+
+alias npm='pnpm'
+alias npx='pnpx'
+
+function _omb_alias_general_nano_init {
+  #if LANG=C command nano --help |& \grep -q '^[[:space:]]*[-]W'; then
+  if LANG=C command nano --help | \grep -q '^[[:space:]]*[-]W'; then
+    alias nano='nano -W' && function _omb_alias_general_nano_init { command nano -W "$@"; }
+  else
+    unalias nano 2>/dev/null; function _omb_alias_general_nano_init { command nano "$@"; }
+  fi &&
+    _omb_alias_general_nano_init "$@"
+}
+alias nano='_omb_alias_general_nano_init'   # Preferred 'nano' implementation
+
+# open='xdg-open &>/dev/null'
+hash xdg-open &>/dev/null && alias open='xdg-open'
+
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+alias po="popd"
+alias pu="pushd"
+
+alias pacman='pacman -v'
+alias pqg='pacman -Q|egrep -i'
+alias pqi='pacman -Qi'
+alias pql='pacman -Ql'
+alias pqo='pacman -Qo'
+alias ps='ps aux'
+
+alias psg='\ps aux | \grep -v without-match | \grep -i'
+
+alias py='python3'
+
+alias rmbra="rename 'y/)(/_/'"
+
+# NOT using `-u`, time is not reliable in many cases
+alias rsync='rsync -avz --progress --timeout=300 --max-size=100M --exclude=node_modules --exclude Library --exclude .cache'
+
+# acct - The GNU Accounting utilities for process and login accounting
+# surfraw - a fast unix command line interface to WWW
+
+alias se='ls -l /usr/{,s}bin /etc/alternatives/| grep'
+alias sq='sqlite3'
+
+alias scp='scp -r'
+
+alias shred="shred -zf"
+
+# UnZip
+#
+# no '-O ' option
+# UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP.
+#  -U  use escapes for all non-ASCII Unicode  -UU ignore any Unicode fields
+#
+# no '-O ' option
+# UnZip 6.00 of 20 April 2009, by Info-ZIP, with modifications by Apple Inc.
+
+if command -v unzip 1>/dev/null && ! \unzip -v | grep -q 'Debian.\|Apple Inc' ; then alias unzip='unzip -O CP936'; fi
+
+test -x /opt/homebrew/opt/unzip/bin/unzip && alias unzip='/opt/homebrew/opt/unzip/bin/unzip -O CP936'
+
+## translate
+#alias u='translate -i'
+
+alias ua='uname -a && echo && uptime'
+
+#alias wget="wget -U 'noleak'"
+alias wget="wget --no-check-certificate -c --content-disposition"
+
+alias whence='type -a'                        # where, of a sort
+alias where="type -all"
+alias which='alias | which -a'
+#alias which="type -path"
+#alias which='alias | which --tty-only --read-alias --show-dot --show-tilde'
+
+#function cd_func
+#This function defines a 'cd' replacement function capable of keeping,
+#displaying and accessing history of visited directories, up to 10 entries.
+#To use it, uncomment it, source this file and try 'cd --'.
+#acd_func 1.0.5, 10-nov-2004
+cd_func () {
+  local x2 the_new_dir adir index
+  local -i cnt
+
+  if [[ $1 ==  "--" ]]; then
+    dirs -v
+    return 0
+  fi
+
+  the_new_dir=$1
+  [[ -z $1 ]] && the_new_dir=$HOME
+
+  if [[ ${the_new_dir:0:1} == '-' ]]; then
+    #
+    # Extract dir N from dirs
+    index=${the_new_dir:1}
+    [[ -z $index ]] && index=1
+    adir=$(dirs +$index)
+    [[ -z $adir ]] && return 1
+    the_new_dir=$adir
+  fi
+
+  #
+  # '~' has to be substituted by ${HOME}
+  [[ ${the_new_dir:0:1} == '~' ]] && the_new_dir="${HOME}${the_new_dir:1}"
+
+  #
+  # Now change to the new dir and add to the top of the stack
+  pushd "${the_new_dir}" > /dev/null
+  [[ $? -ne 0 ]] && return 1
+  the_new_dir=$(pwd)
+
+  #
+  # Trim down everything beyond 11th entry
+  popd -n +11 2>/dev/null 1>/dev/null
+
+  #
+  # Remove any other occurence of this dir, skipping the top of the stack
+#  for ((cnt=1; cnt <= 10; cnt++)); do
+#    x2=$(dirs +${cnt} 2>/dev/null)
+#    [[ $? -ne 0 ]] && return 0
+#    [[ ${x2:0:1} == '~' ]] && x2="${HOME}${x2:1}"
+#    if [[ "${x2}" == "${the_new_dir}" ]]; then
+#      popd -n +$cnt 2>/dev/null 1>/dev/null
+#      cnt=cnt-1
+#    fi
+#  done
+
+  return 0
+}
+
+#alias cd=cd_func
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache"
+
+# View HTTP traffic
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# Start an HTTP server from a directory
+alias server="python2 -m SimpleHTTPServer"
+alias server="python2 -m SimpleHTTPServer 8080"
+alias server='python2 -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
+alias server="python3 -m http.server 8080"
+alias server="python3 -m http.server"
+
+# Trim new lines and copy to clipboard
+alias C="tr -d '\n' | pbcopy"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 10'"
+alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# Canonical hex dump; some systems have this symlinked
+[ "$BASH_VERSINFO" -ge "4" ] && type -t hd > /dev/null || alias hd="hexdump -C"
+
+alias cargo='cargo -vv --color=auto'
+
+# some more ls aliases
+#alias ll='ls -l'
+#alias la='ls -A'
+#alias l='ls -CF'
+
+#short-cut to the commands.
+alias c='clear'
+alias cg='grep -in --color -I'
+alias cgr='grep -in --color -rI'
+alias gg='git grep -a -i'
+alias lt='ls -ltr'
+alias h='history  | tail -39 | more'
+alias hs='history | tail -40 | more'
+alias lc='locate'
+
+alias cl='TERM=xterm-color'
+alias cls='TERM=xterm-256color'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# program 'notify-send' is in libnotify-bin
+
+
+alias grubup="sudo update-grub"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias rmpkg="sudo pacman -Rdd"
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias hw='hwinfo --short'                                   # Hardware Info
+alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB (expac must be installed)
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'			# List amount of -git packages
+
+# Fix for foot terminfo not installed on most servers
+alias ssh="TERM=xterm-256color ssh"
+
+# Get fastest mirrors
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+
+alias helpme='cht.sh --shell'
+alias pacdiff='sudo -H DIFFPROG=meld pacdiff'
+alias tb='nc termbin.com 9999'
+
+# Replace yay with paru if installed
+[ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
+
+
+alias secret.gen="head -2 /dev/urandom | sha1sum | base64"
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+
+alias tree='exa --tree --icons --color=always'
+
+## Command `batcat` provided in `deb` package `bat`
+## Pretty printed python,html,css etc. code.
+hash bat &>/dev/null && alias cat='bat -pp'
+hash batcat &>/dev/null && alias cat='batcat'
+
+alias docker-compose='docker compose'
+
+# ls, color, etc.
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+#-F, --classify				append indicator (one of */=>@|) to entries
+#-F      Display a slash (`/') immediately after each pathname that is a directory,
+#		an asterisk (`*') after each that is executable,
+#		an at sign (`@') after each symbolic link,
+#		an equals sign (`=') after each socket,
+#		a percent sign (`%') after each whiteout, and
+#		a vertical bar (`|') after each that is a FIFO.
+
+
+if [[ "`uname -s`" == "FreeBSD" ]]
+#if [[ "$OSTYPE" =~ *BSD ]]; then
+then
+  alias ls='ls -FG'
+elif [[ "$OSTYPE" =~ ^darwin ]]; then
+#elif [ "`uname -s`" == "Darwin" ]
+  # uname also works
+  alias ls="command ls -bFG"
+else # Assume Linux
+  #alias ls="command ls -FG"
+  alias ls='ls -F -G -X -C -h --color=auto --show-control-chars'
+  #alias ls='\ls -F -X --color=tty --show-control-chars'
+fi
+
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+
+alias cp="cp -i"                          # confirm before overwriting something
+alias mv="mv -i"                          # confirm before overwriting something
+alias rm="rm -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+alias np='nano -w PKGBUILD'
+#alias more=less
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
+
