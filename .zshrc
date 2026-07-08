@@ -23,3 +23,4 @@ alias np='nano -w PKGBUILD'
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
 
+export COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
