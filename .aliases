@@ -219,7 +219,7 @@ alias pbip="curl -s checkip.dyndns.com | sed 's/[^0-9\.]//g'"
 #alias ips="\ip a | \grep -o -P '\(\d+\.\d+\.\d+\.\d+\)/\(16|24\)'"
 alias ips="ip a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
-alias whois="whois -h whois-servers.net"
+# alias whois="whois -h whois-servers.net"
 
 alias wt='curl http://wttr.in/'
 # . ~/.bashrc.d/wttr.bash beijing
@@ -499,6 +499,7 @@ alias eng='env | grep -i'
 
 # fd name in arch distros
 hash fd &>/dev/null && alias fd='fd -HL -E.git'
+hash fd &>/dev/null && alias fd='fd -HL'
 hash fd &>/dev/null && alias fdl='fd -HLl -E.git'
 # fd name in deb distros, package name is fd-find
 hash fdfind &>/dev/null && alias fd='fdfind -HI -E.git'

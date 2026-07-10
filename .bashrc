@@ -11,8 +11,28 @@
 
 # Modifying /etc/skel/.bashrc directly will prevent setup from updating it.
 
-# Enable the subsequent settings only in interactive sessions
-# do nothing if not running interactively
+# Ignoring failing commands
+# errexit only exits the subshell, it does not exit the script.
+#set -o errexit              #set -e
+
+# Referencing undefined variables (which default to "")
+#set -o nounset              #set -u
+
+# -e : NOTE: MAY LOCK you out of logins if put into login scripts
+#set -eu
+#set -u
+
+# For dealing with 'set -u':
+# -e  Exit immediately if a command exits with a non-zero status.
+# -u  Treat unset variables as an error when substituting.
+
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
+
+# To enable the settings / commands in this file for login shells as well,
+# this file has to be sourced in profile.
 
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
@@ -36,29 +56,6 @@
   ;;
 *) return ;;
 esac
-
-# Ignoring failing commands
-# errexit only exits the subshell, it does not exit the script.
-#set -o errexit              #set -e
-
-# Referencing undefined variables (which default to "")
-#set -o nounset              #set -u
-
-# -e : NOTE: MAY LOCK you out of logins if put into login scripts
-#set -eu
-#set -u
-
-# For dealing with 'set -u':
-# -e  Exit immediately if a command exits with a non-zero status.
-# -u  Treat unset variables as an error when substituting.
-
-# This file is sourced by all *interactive* bash shells on startup,
-# including some apparently interactive shells such as scp and rcp
-# that can't tolerate any output.  So make sure this doesn't display
-# anything or bad things will happen !
-
-# To enable the settings / commands in this file for login shells as well,
-# this file has to be sourced in profile.
 
 # To enable the settings / commands in this file for login shells as well,
 # this file has to be sourced in /etc/profile.
@@ -1498,7 +1495,7 @@ bgrun() {
 
     echo "✅ Running bgrun tasks: $*"
     echo "   PID: $pid"
-    echo "   日志: $logfile"
+    echo "   Log file: $logfile"
     ;;
   esac
 }
@@ -1791,12 +1788,9 @@ unset UNAME RELEASE default dirnames filenames have nospace bashdefault plusdirs
 
 unset color_prompt force_color_prompt
 
-# Kiro CLI
-# [ -x ~/.local/bin/kiro-cli ] && eval "$(~/.local/bin/kiro-cli init bash post --rcfile bashrc)"
-
 # pnpm
 export PNPM_HOME="$HOME/.pnpm"
-prependpath $PNPM_HOME
+prependpath $PNPM_HOME/bin
 
 # pnpm: use ${XDG_CONFIG_HOME:-$HOME/.config}/pnpm/rc
 # pnpm config set store-dir $PNPM_HOME/store
@@ -1815,19 +1809,26 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 #prependpath $NVM_DIR/bin
 
-# 在全局 ~/.config/pnpm/rc
-## 精确版本安装
+# In ~/.config/pnpm/rc
 #save-exact=true
 
-## 严格 peer dependencies（根据需要可设 false）
 #strict-peer-dependencies=true
 
-## 如果你用 monorepo，建议
-## shamefully-hoist=false   （默认就好）
+## For monorepo
+## shamefully-hoist=false
 
 # pnpm end
+export GIT_TRACE=1
 
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
+# <<< grok installer <<<
+
+# Kiro CLI
+# [ -x ~/.local/bin/kiro-cli ] && eval "$(~/.local/bin/kiro-cli init bash post --rcfile bashrc)"
+
+# [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
 
 ## follow the XDG Base and User Directory Specifications
 #export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
@@ -1836,10 +1837,6 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$HOME/.cache}
 
-#export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-#export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-#export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-#export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 #export XDG_DOWNLOAD_DIR=${XDG_DOWNLOAD_DIR:-$HOME/.download}
 #export XDG_DESKTOP_DIR=${XDG_DESKTOP_DIR:-$HOME}
 #
