@@ -1974,3 +1974,34 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 PS1="#${debian_chroot:+($debian_chroot)} \D{W%V.%u} \t \l \s-\v \[\033[41;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]/\n\$ "
+
+# bit
+###-begin-bit-completions-###
+#
+# yargs command completion script
+#
+# Installation: .bvm/links/bit/node_modules/@teambit/bit/bin/bit completion >> ~/.bashrc
+#    or .bvm/links/bit/node_modules/@teambit/bit/bin/bit completion >> ~/.bash_profile on OSX.
+#
+_bit_yargs_completions() {
+  local cur_word args type_list
+
+  cur_word="${COMP_WORDS[COMP_CWORD]}"
+  args=("${COMP_WORDS[@]}")
+
+  # ask yargs to generate completions.
+  type_list=$(.bvm/links/bit/node_modules/@teambit/bit/bin/bit --get-yargs-completions "${args[@]}")
+
+  COMPREPLY=($(compgen -W "${type_list}" -- ${cur_word}))
+
+  # if no match was found, fall back to filename completion
+  if [ ${#COMPREPLY[@]} -eq 0 ]; then
+    COMPREPLY=()
+  fi
+
+  return 0
+}
+complete -o default -F _bit_yargs_completions bit
+###-end-bit-completions-###
+
+# bit end
