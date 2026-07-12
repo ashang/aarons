@@ -1,7 +1,8 @@
 #
 # ~/.bashrc: executed by bash(1) for non-login interactive bash shells.
-#
+
 # [ -x ~/.local/bin/kiro-cli ] && eval "$(~/.local/bin/kiro-cli init bash pre --rcfile bashrc)"
+
 # ~/.bash_profile is sourced by BASH for login shells
 # ~/.profile is executed by Bourne compatible login shells, sh, bash, ash, dash
 # ~/.profile is *NOT* read by BASH IF ~/.bash_profile or ~/.bash_login exists
@@ -1790,14 +1791,21 @@ unset color_prompt force_color_prompt
 
 # pnpm
 export PNPM_HOME="$HOME/.pnpm"
+
+#prependpath $PNPM_HOME/bin
 prependpath $PNPM_HOME/bin
 
+#case ":$PATH:" in
+#  *":$PNPM_HOME/bin:"*) ;;
+#  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+#esac
+# pnpm end
+
 # pnpm: use ${XDG_CONFIG_HOME:-$HOME/.config}/pnpm/rc
-# pnpm config set store-dir $PNPM_HOME/store
 #pnpm config set global-dir $PNPM_HOME
 #pnpm config set global-bin-dir $PNPM_HOME/bin
-
-# pnpm config set store-dir ~/.pnpm/store --global
+#pnpm config set store-dir $PNPM_HOME/store
+#pnpm config set store-dir ~/.pnpm/store --global
 #export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
 #export NODE_MIRROR=https://npmmirror.com/
 export NODE_MIRROR=https://mirrors.ustc.edu.cn/node/
@@ -1817,7 +1825,6 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 ## For monorepo
 ## shamefully-hoist=false
 
-# pnpm end
 export GIT_TRACE=1
 
 # >>> grok installer >>>
