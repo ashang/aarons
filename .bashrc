@@ -1792,12 +1792,9 @@ unset color_prompt force_color_prompt
 # pnpm
 export PNPM_HOME="/home/aaron/.pnpm"
 case ":$PATH:" in
-*":$PNPM_HOME/bin:"*) ;;
-*) export PATH="$PNPM_HOME/bin:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
-
-#prependpath $PNPM_HOME/bin
-prependpath $PNPM_HOME/bin
 # pnpm end
 
 # pnpm: use ${XDG_CONFIG_HOME:-$HOME/.config}/pnpm/rc
