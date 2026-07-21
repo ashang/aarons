@@ -1,0 +1,99 @@
+# Screenshots
+
+set $mode_screenshot "<span foreground='$color10'>󰄄</span>  \
+<span foreground='$color5'><b>Pick</b></span> <span foreground='$color10'>(<b>p</b>)</span> \
+<span foreground='$color5'><b>Output</b></span> <span foreground='$color10'>(<b>o</b>)</span> \
+<span foreground='$color7'>+ <span foreground='$color10'><b>Shift</b></span> for </span>"
+
+mode --pango_markup $mode_screenshot {
+    # output = currently active output
+    $bindsym o mode "default", exec $screenshot_screen
+    $bindsym Shift+o mode "default", exec $screenshot_screen_upload
+
+    # pick the region to screenshot
+    $bindsym p mode "default", exec $screenshot_selection
+    $bindsym Shift+p mode "default", exec $screenshot_selection_upload
+
+    # Return to default mode.
+    $bindsym Escape mode "default"
+}
+
+## Launch // Screenshot Mode ##
+$bindsym Print mode $mode_screenshot
+
+## Special key to take a screenshot with grim
+#bindsym Print exec grim
+#bindsym Print exec grim
+#bindsym Print exec grim
+#bindsym Print exec grim
+#bindsym $mod+Shift+S exec grim ~/Pictures/$(date '+%Y-%m-%d-%T')-screenshot.png
+#bindsym $mod+Shift+S exec grim ~/Pictures/$(date '+%Y-%m-%d-%T')-screenshot.png
+#bindsym $mod+Shift+S exec grim ~/Pictures/$(date '+%Y-%m-%d-%T')-screenshot.png
+#bindsym $mod+Shift+S exec grim ~/Pictures/$(date '+%Y-%m-%d-%T')-screenshot.png
+
+
+#bindsym --release Print       exec --no-startup-id "maim    -p 0 -c 0.96,0.5,0.09 $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
+#bindsym print exec /usr/share/sway/grimshot --notify save output
+# https://github.com/emersion/slurp https://github.com/emersion/grim https://github.com/bugaevc/wl-clipboard
+
+#grim $(xdg-user-dir PICTURES)/$(date +'%s_grim.png')
+set $filename /data/inputs/screenshots/$(date +'%Y%m%d_%H%M%S.png')
+
+# capture all screens to clipboard
+bindsym Shift+Print			exec grim - | wl-copy
+# capture the specified screen area to clipboard
+bindsym shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+#grim -g "$(slurp -d)" - | wl-copy
+
+# capture the focused monitor to clipboard
+bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
+
+#bindsym Shift+Print exec "grimshot save area"
+#bindsym --release Shift+Print exec --no-startup-id "maim -s -p 0 -c 0.96,0.5,0.09 $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
+#bindsym Shift+Print exec scrot -u $filename
+
+#bindsym Shift+print exec ~/.config/sway/scripts/screenshot.sh
+
+bindsym Control+Print exec grim -g "$(slurp)" $filename
+
+#grim
+#Screenshoot a specific output:
+#grim -o DP-1
+
+#Screenshoot a region:
+#grim -g "10,20 300x400"
+
+#Select a region and screenshoot it:
+#grim -g "$(slurp)"
+
+#Grab a screenshot from the focused monitor under Sway, using swaymsg and jq:
+#grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
+#Grab a screenshot from the focused window under Sway, using swaymsg and jq:
+
+#grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')"
+#Pick a color, using ImageMagick:
+
+#grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:-
+
+set $grimshot $HOME/.config/sway/grimshot
+set $image_upload $HOME/.config/sway/grimshot.1.scd
+set $screenshot_screen_clipboard $grimshot --notify copy output
+set $screenshot_screen_file $grimshot --notify save output
+set $screenshot_screen_upload $screenshot_screen_file | xargs $image_upload
+set $screenshot_selection_clipboard $grimshot --notify copy window
+set $screenshot_selection_file $grimshot --notify save window
+set $screenshot_selection_upload $screenshot_selection_file | xargs $image_upload
+
+##By default grim/grimshot will place files in the $XDG_SCREENSHOTS_DIR (default ~/Pictures).
+
+    #bindsym Print       exec "grimshot save screen"
+
+    #bindsym Mod1+print exec /usr/share/sway/grimshot --notify copy area
+    bindsym Mod1+Print  exec "grimshot save window"
+    bindsym Mod4+Print  exec "grimshot copy area"
+    ## based these shortcuts off the ones used in GNOME.
+    ## based these shortcuts off the ones used in GNOME.
+    ## based these shortcuts off the ones used in GNOME.
+    ## based these shortcuts off the ones used in GNOME.
+

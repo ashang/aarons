@@ -666,9 +666,6 @@ stty -ctlecho #don't show ^C when pressing Ctrl+C
 #eval `keychain --eval ~/.ssh/id_dsa`
 #eval `keychain --eval ~/.ssh/id_rsa`
 
-# source
-test -r /fink/bin/init.sh && . /fink/bin/init.sh
-
 # locale
 ## Timezone
 TZ='Asia/Shanghai'
@@ -1508,9 +1505,6 @@ export GOOGLE_CLOUD_PROJECT="gen-lang-client-0832267004"
 
 #export GOOGLE_CLOUD_LOCATION="YOUR_REGION"
 
-# Added by Antigravity
-appendpath $HOME/.antigravity/antigravity/bin
-
 # tfenv
 appendpath "$HOME/.tfenv/bin"
 
@@ -1665,9 +1659,6 @@ appendpath $GEM_PATH/bin
 #echo ${TERM}
 #echo ${PS1}
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 #term
 # export TERM="xterm-256color"
 #/etc/terminfo/*
@@ -1792,8 +1783,8 @@ unset color_prompt force_color_prompt
 # pnpm
 export PNPM_HOME="/home/aaron/.pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+*":$PNPM_HOME/bin:"*) ;;
+*) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
 
@@ -1820,8 +1811,6 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ## For monorepo
 ## shamefully-hoist=false
-
-export GIT_TRACE=1
 
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
@@ -1971,33 +1960,8 @@ fi
 
 PS1="#${debian_chroot:+($debian_chroot)} \D{W%V.%u} \t \l \s-\v \[\033[41;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]/\n\$ "
 
-# bit
-###-begin-bit-completions-###
-#
-# yargs command completion script
-#
-# Installation: .bvm/links/bit/node_modules/@teambit/bit/bin/bit completion >> ~/.bashrc
-#    or .bvm/links/bit/node_modules/@teambit/bit/bin/bit completion >> ~/.bash_profile on OSX.
-#
-_bit_yargs_completions() {
-  local cur_word args type_list
+# Added by Antigravity CLI installer
+export PATH="/Users/aaron/.local/bin:$PATH"
 
-  cur_word="${COMP_WORDS[COMP_CWORD]}"
-  args=("${COMP_WORDS[@]}")
-
-  # ask yargs to generate completions.
-  type_list=$(.bvm/links/bit/node_modules/@teambit/bit/bin/bit --get-yargs-completions "${args[@]}")
-
-  COMPREPLY=($(compgen -W "${type_list}" -- ${cur_word}))
-
-  # if no match was found, fall back to filename completion
-  if [ ${#COMPREPLY[@]} -eq 0 ]; then
-    COMPREPLY=()
-  fi
-
-  return 0
-}
-complete -o default -F _bit_yargs_completions bit
-###-end-bit-completions-###
-
-# bit end
+# Added by Antigravity
+appendpath $HOME/.antigravity/antigravity/bin
