@@ -159,8 +159,6 @@ shopt -s expand_aliases
 shopt -s checkhash histreedit mailwarn
 shopt -s hostcomplete
 
-test -r $HOME/.aliases && source $HOME/.aliases
-
 # export QT_SELECT=4
 
 ## ${VAR:-} is bash default value expansion, return NULL string for undefined variables.
@@ -381,6 +379,12 @@ fi
 # Original PATH is set in /etc/profile
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
+#For Java
+# export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.14/jre/
+# [ ! -z $JAVA_HOME ] && export PATH=$JAVA_HOME/bin:$PATH
+# export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/td.jar:$JAVA_HOME/lib/rt.jar:.
+#export PATH=$JAVA_HOME/bin:/$HOME/.local/my-cross/bin:$PATH
+
 # Append our default paths
 appendpath() {
   case ":$PATH:" in
@@ -401,22 +405,6 @@ prependpath() {
     #*)   test -d $1 && PATH="$1:$PATH" || true
   esac
 }
-
-export LABS="${HOME}/.local"
-export BBDIR="${LABS}/bitbake"
-
-appendpath ${BBDIR}/bin
-
-export PATH="$HOME/.deno/bin:$PATH"
-
-appendpath '/opt/bin'
-appendpath '/usr/games'
-
-# set PATH so it includes user's private bin if it exists
-
-#prependpath "$HOME/.local/bin"
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-prependpath "$DIR/.local/bin"
 
 # less and more, man
 # {
@@ -493,12 +481,25 @@ function mans { man "$1" | grep -iC2 --color=always "$2" | less; }
 # empty values to cancel mode, using default no mode
 
 #export LESS_TERMCAP_mb=
-#export LESS_TERMCAP_md=
 #export LESS_TERMCAP_me=
 #export LESS_TERMCAP_so=
 #export LESS_TERMCAP_se=
 #export LESS_TERMCAP_us=
 #export LESS_TERMCAP_ue=
+#export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+#export LESS_TERMCAP_md=$'\e[1;32m'
+#export LESS_TERMCAP_so=$'\E[34;7;246m'    # begin standout-mode - info box
+# reverse video == standout-mode
+#export LESS_TERMCAP_us=$'\e[1;4;31m'
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+export LESS_TERMCAP_mb=$'\E[1;31m'  # begin blink
+export LESS_TERMCAP_md=$'\E[1;36m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'     # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'     # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'  # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
 
 # }
 
@@ -572,8 +573,43 @@ use_color=false
 # better yaourt colors
 export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
 
+# set a fancy prompt (non-color, unless we know we "want" color)
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
+fi
+
 # enable color support of ls, less and man, and also add handy aliases
-if [ -x /usr/bin/dircolors ] && ${use_color}; then
+if type -P dircolors >/dev/null; then
+  LS_COLORS=
+
+  # If it isn't set, then `ls` will only colorize by default
+  # based on file attributes and ignore extensions (even the compiled
+  # in defaults of dircolors).
+
+  if [[ -n ${LS_COLORS:+set} ]]; then
+    export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
+    use_color=true
+  else
+    # Delete it if it's empty as it's useless in that case.
+    unset LS_COLORS
+  fi
+
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
+
   # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
   if [[ -f ~/.dir_colors ]]; then
     match_lhs="${match_lhs}$(<$HOME/.dir_colors)"
@@ -592,14 +628,6 @@ if [ -x /usr/bin/dircolors ] && ${use_color}; then
     PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
   fi
 
-else
-  if [[ ${EUID} == 0 ]]; then
-    # show root@ when we don't have colors
-    PS1='\u@\h \W \$ '
-  else
-    PS1='\u@\h \w \$ '
-  fi
-
   alias ls='ls --color=auto'
   #alias dir='dir --color=auto'
   #alias vdir='vdir --color=auto'
@@ -610,20 +638,14 @@ else
   alias diff='diff --color=auto'
   alias ip='ip --color=auto'
 
-  #export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-  #export LESS_TERMCAP_md=$'\e[1;32m'
-  #export LESS_TERMCAP_so=$'\E[34;7;246m'    # begin standout-mode - info box
-  # reverse video == standout-mode
-  #export LESS_TERMCAP_us=$'\e[1;4;31m'
-  export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+else
+  if [[ ${EUID} == 0 ]]; then
+    # show root@ when we don't have colors
+    PS1='\u@\h \W \$ '
+  else
+    PS1='\u@\h \w \$ '
+  fi
 
-  export LESS_TERMCAP_mb=$'\E[1;31m'  # begin blink
-  export LESS_TERMCAP_md=$'\E[1;36m'  # begin bold
-  export LESS_TERMCAP_me=$'\E[0m'     # reset bold/blink
-  export LESS_TERMCAP_so=$'\E[01;33m' # begin reverse video
-  export LESS_TERMCAP_se=$'\E[0m'     # reset reverse video
-  export LESS_TERMCAP_us=$'\E[1;32m'  # begin underline
-  export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
 fi
 
 #http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
@@ -879,17 +901,6 @@ function prompt_git() {
   fi
 }
 
-#PATH
-# NEVER export PATH without quoting $PATH
-# Deal with PATH only in .bashrc, and source it in ~/.bash_profile
-# Original PATH is set in /etc/profile
-
-#For Java
-# export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.14/jre/
-# [ ! -z $JAVA_HOME ] && export PATH=$JAVA_HOME/bin:$PATH
-# export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/td.jar:$JAVA_HOME/lib/rt.jar:.
-#export PATH=$JAVA_HOME/bin:/$HOME/.local/my-cross/bin:$PATH
-
 # brew
 #export HOMEBREW_PREFIX=/opt/homebrew
 export HOMEBREW_PREFIX=$HOME/.brew
@@ -922,10 +933,6 @@ export INFOPATH="${HOMEBREW_PREFIX}/share/info:$INFOPATH"
 # export HOMEBREW_BOTTLE_DOMAIN
 # export HOMEBREW_PIP_INDEX_URL
 
-export LABS="${HOME}/.local"
-export BBDIR="${LABS}/bitbake"
-export PATH="${BBDIR}/bin:$PATH"
-
 #QUILT
 #export QUILT_PATCHES="debian/patches"
 #export QUILT_PUSH_ARGS="--color=auto"
@@ -946,8 +953,26 @@ export PKG_CONFIG_PATH=/usr/X11R6/lib/pkgconfig:/usr/lib/pkgconfig
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/share/lib:/usr/local/lib:/usr/X11R6/lib:/opt/lib
 export LD_LIBRARY_PATH=/opt/j2sdk1.4.2_04/jre:$LD_LIBRARY_PATH
 
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gen-lang-client-0832267004-2be0c36b9189.json"
+
+#export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
+export GOOGLE_CLOUD_PROJECT="gen-lang-client-0832267004"
+
+#export GOOGLE_CLOUD_LOCATION="YOUR_REGION"
+
+# tfenv
+appendpath "$HOME/.tfenv/bin"
+
 ###Heroku Toolbelt
-[ -d "$HOME/.local/heroku/bin" ] && export PATH="$HOME/.local/heroku/bin:$PATH"
+# [ -d "$HOME/.local/heroku/bin" ] && export PATH="$HOME/.local/heroku/bin:$PATH"
+appendpath $HOME/.local/heroku/bin
+
+# startup programs {{{
+#export calendar=$HOME/.calendar/calendar.all
+
+export PATH=$PATH:$HOME/depot_tools
+
+BASH_PREEXEC_IN_ETC_BASHRC=
 
 # cargo
 test -e "$HOME/.cargo/env" && . "$HOME/.cargo/env" || true
@@ -976,13 +1001,6 @@ export PERL_MM_OPT
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '$HOME/google-cloud-sdk/path.bash.inc' ]; then
   source '$HOME/google-cloud-sdk/path.bash.inc'
-fi
-
-export GOPATH=~/gopath
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ]; then
-  PATH="$HOME/bin:$PATH"
 fi
 
 export PATH
@@ -1071,9 +1089,6 @@ if [ -n "$TMUX" ]; then
 fi
 
 # export QT_SELECT=4
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
 
 #Completion options
 bind "set show-all-if-ambiguous on" #enable single tab completion
@@ -1498,29 +1513,6 @@ bgrun() {
   esac
 }
 
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gen-lang-client-0832267004-2be0c36b9189.json"
-
-#export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
-export GOOGLE_CLOUD_PROJECT="gen-lang-client-0832267004"
-
-#export GOOGLE_CLOUD_LOCATION="YOUR_REGION"
-
-# tfenv
-appendpath "$HOME/.tfenv/bin"
-
-###Heroku Toolbelt
-# [ -d "$HOME/.local/heroku/bin" ] && export PATH="$HOME/.local/heroku/bin:$PATH"
-appendpath $HOME/.local/heroku/bin
-
-appendpath $HOME/.codeium/windsurf/bin
-
-# startup programs {{{
-#export calendar=$HOME/.calendar/calendar.all
-
-export PATH=$PATH:$HOME/depot_tools
-
-BASH_PREEXEC_IN_ETC_BASHRC=
-
 # proxy
 #export http_proxy=http://127.0.0.1:10080
 #export https_proxy=http://127.0.0.1:10080
@@ -1572,12 +1564,6 @@ export ASDF_DATA_DIR="$HOME/.asdf"
 
 # ruby
 
-# Load RVM into a shell session *as a function*
-#[ -f "${HOME}/.rvm/bin" ] && export PATH="${PATH}:${HOME}/.rvm/bin"
-
-# Use the following; Add RVM to PATH for scripting
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 # hash: hash [-lr] [-p pathname] [-dt] [name ...]
 #     For each NAME, the full pathname of the command is determined and
 #     remembered.  If the -p option is supplied, PATHNAME is used as the
@@ -1589,12 +1575,6 @@ export ASDF_DATA_DIR="$HOME/.asdf"
 #     -t, the NAME is printed before the hashed full pathname.  The -l option
 #     causes output to be displayed in a format that may be reused as input.
 #     If no arguments are given, information about remembered commands is displayed.
-
-# Install vagrant autocomplete
-#
-#   vagrant autocomplete install --bash --zsh
-#
-source /opt/vagrant/embedded/gems/2.2.19/gems/vagrant-2.2.19/contrib/bash/completion.sh 2>/dev/null || true
 
 # GEM_HOME is where gems will be installed (by default).
 # $ gen env ; gen env home
@@ -1663,77 +1643,8 @@ appendpath $GEM_PATH/bin
 # export TERM="xterm-256color"
 #/etc/terminfo/*
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-if type -P dircolors >/dev/null; then
-  LS_COLORS=
-
-  # If it isn't set, then `ls` will only colorize by default
-  # based on file attributes and ignore extensions (even the compiled
-  # in defaults of dircolors).
-
-  if [[ -n ${LS_COLORS:+set} ]]; then
-    export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
-    use_color=true
-  else
-    # Delete it if it's empty as it's useless in that case.
-    unset LS_COLORS
-  fi
-
-else
-  # Some systems (e.g. BSD & embedded) don't typically come with
-  # dircolors so we need to hardcode some terminals in here.
-  case ${TERM} in
-  [aEkx]term* | rxvt* | gnome* | konsole* | screen | cons25 | *color) use_color=true ;;
-  esac
-fi
-
-if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
-fi
-
-# enable color support of ls, less and man, and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
-
-  alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
-
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-  alias diff='diff --color=auto'
-  alias ip='ip --color=auto'
-
-  export LESS_TERMCAP_mb=$'\E[1;31m'  # begin blink
-  export LESS_TERMCAP_md=$'\E[1;36m'  # begin bold
-  export LESS_TERMCAP_me=$'\E[0m'     # reset bold/blink
-  export LESS_TERMCAP_so=$'\E[01;33m' # begin reverse video
-  export LESS_TERMCAP_se=$'\E[0m'     # reset reverse video
-  export LESS_TERMCAP_us=$'\E[1;32m'  # begin underline
-  export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 # Alias definitions.
-#source "$HOME/.aliases"
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
+test -r $HOME/.aliases && source $HOME/.aliases
 
 # bash-completion
 #trap '. /etc/bash_completion ; trap USR2' USR2
@@ -1786,7 +1697,7 @@ case ":$PATH:" in
 *":$PNPM_HOME/bin:"*) ;;
 *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
-# pnpm end
+prependpath $PNPM_HOME/bin
 
 # pnpm: use ${XDG_CONFIG_HOME:-$HOME/.config}/pnpm/rc
 #pnpm config set global-dir $PNPM_HOME
@@ -1797,20 +1708,12 @@ esac
 #export NODE_MIRROR=https://npmmirror.com/
 export NODE_MIRROR=https://mirrors.ustc.edu.cn/node/
 
-#nvm
-export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
+# pnpm config list
+# pnpm config get --global
 
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-#prependpath $NVM_DIR/bin
-
-# In ~/.config/pnpm/rc
-#save-exact=true
-
-#strict-peer-dependencies=true
-
-## For monorepo
-## shamefully-hoist=false
+# on macos, ~/.config/pnpm/rc is not read
+# but pnpm will always read ~/.npm/rc
+# pnpm end
 
 # >>> grok installer >>>
 export PATH="$HOME/.grok/bin:$PATH"
@@ -1960,8 +1863,22 @@ fi
 
 PS1="#${debian_chroot:+($debian_chroot)} \D{W%V.%u} \t \l \s-\v \[\033[41;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]/\n\$ "
 
-# Added by Antigravity CLI installer
 export PATH="/Users/aaron/.local/bin:$PATH"
+export LABS="${HOME}/.local"
+export BBDIR="${LABS}/bitbake"
+
+appendpath ${BBDIR}/bin
+
+export PATH="$HOME/.deno/bin:$PATH"
+
+appendpath '/opt/bin'
+appendpath '/usr/games'
+
+# set PATH so it includes user's private bin if it exists
+
+#prependpath "$HOME/.local/bin"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+prependpath "$DIR/.local/bin"
 
 # Added by Antigravity
 appendpath $HOME/.antigravity/antigravity/bin
