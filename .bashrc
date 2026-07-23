@@ -1692,11 +1692,8 @@ unset UNAME RELEASE default dirnames filenames have nospace bashdefault plusdirs
 unset color_prompt force_color_prompt
 
 # pnpm
-export PNPM_HOME="/home/aaron/.pnpm"
-case ":$PATH:" in
-*":$PNPM_HOME/bin:"*) ;;
-*) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
+#export PNPM_HOME="/home/aaron/.pnpm"
+export PNPM_HOME="$HOME/.pnpm"
 prependpath $PNPM_HOME/bin
 
 # pnpm: use ${XDG_CONFIG_HOME:-$HOME/.config}/pnpm/rc
