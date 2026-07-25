@@ -1879,3 +1879,6 @@ prependpath "$DIR/.local/bin"
 
 # Added by Antigravity
 appendpath $HOME/.antigravity/antigravity/bin
+
+# opencode
+export PATH=/Users/aaron/.opencode/bin:$PATH
