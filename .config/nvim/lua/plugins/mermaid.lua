@@ -16,15 +16,26 @@ return {
     ft = { "markdown", "mermaid" },
     config = function()
       local mermaid = require("mermaid")
-      
       mermaid.setup({
         -- default is on, more to add here
         -- 1. sync colorscheme with dark/light mode
         -- 2. built in local HTTP server for smooth interaction
+
+        format = {
+          shift_width = 4, -- Indentation size (spaces)
+        },
+        lint = {
+          enabled = true, -- Enable diagnostics via mmdc
+          command = "mmdc", -- Path to mermaid-cli executable
+        },
+        preview = {
+          renderer = "mermaid.js", -- "mermaid.js" or "beautiful-mermaid"
+          theme = "default", -- Theme name (renderer-specific)
+        },
       })
 
       vim.keymap.set("n", "<leader>mp", "<cmd>Mermaid preview<cr>", { desc = "Instant Mermaid preview" })
       vim.keymap.set("n", "<leader>mf", "<cmd>Mermaid format<cr>", { desc = "Format current Mermaid code" })
     end,
-  }
+  },
 }
