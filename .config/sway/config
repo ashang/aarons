@@ -57,6 +57,17 @@ set $launcher wofi
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+# "identifier": "1739:52390:DELL089C:00_06CB:CCA6_Touchpad",
+# "name": "DELL089C:00 06CB:CCA6 Touchpad",
+# "type": "touchpad",
+# "scroll_factor": 1.0,
+input type:touchpad {
+    events enabled
+    tap enabled
+    dwt enabled
+    natural_scroll enabled
+}
+
 ### Key bindings
 #
 # Basics:
@@ -231,9 +242,6 @@ include outputs/*
 # enable modes
 include modes/*
 
-# only enable this if every app you use is compatible with wayland
-# xwayland disable
-
 # include additional configs e.g. to autostart applications
 include config.d/*
 
@@ -333,8 +341,7 @@ exec_always --no-startup-id killall waybar; waybar
 #exec_always --no-startup-id $HOME/.config/sway/launch_polybar.sh
 #exec_always --no-startup-id $HOME/.config/sway/launch_polybar.sh
 
-# "identifier": "1739:52390:DELL089C:00_06CB:CCA6_Touchpad",
-# "name": "DELL089C:00 06CB:CCA6 Touchpad",
-# "type": "touchpad",
-# "scroll_factor": 1.0,
+# only enable this if every app you use is compatible with wayland
+# xwayland disable
+xwayland enable
 
