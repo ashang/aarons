@@ -1106,9 +1106,6 @@ fi
 #FIXME
 #certutil: function failed: SEC_ERROR_PKCS11_GENERAL_ERROR: A PKCS #11 module returned CKR_GENERAL_ERROR, indicating that an unrecoverable error has occurred.
 
-##startup programs ----------------------------------------
-#export calendar=$HOME/.calendar/calendar.all
-
 #! ps aux | grep -q fetchmail && fetchmail &
 #! ( ps aux | grep -q fetchmail ) && fetchmail &
 
@@ -1341,23 +1338,6 @@ ex() {
     echo "'$1' is not a valid file"
   fi
 }
-
-STARSHIP_SHELL=
-
-# which zellij &>/dev/null && eval "$(zellij setup --generate-auto-start bash)"
-
-#which zellij &>/dev/null &&
-#(
-#ZJ_SESSIONS=$(zellij list-sessions)
-#NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
-#
-#if [ "${NO_SESSIONS}" -ge 2 ]; then
-#    zellij attach \
-#    "$(echo "${ZJ_SESSIONS}" | sk)"
-#else
-#   zellij attach -c
-#fi
-#)
 
 # exports
 
@@ -1882,3 +1862,7 @@ appendpath $HOME/.antigravity/antigravity/bin
 
 # opencode
 export PATH=/Users/aaron/.opencode/bin:$PATH
+
+type -P mise >/dev/null && eval "$(mise activate bash)"
+
+[[ -f ~/.local/bin/ble.sh ]] && source ~/.local/bin/ble.sh
