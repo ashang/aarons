@@ -283,7 +283,11 @@ alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 #alias more=less
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
+# alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
+dotfiles() {
+    /usr/bin/git --git-dir="$HOME/aarons/" --work-tree="$HOME" "$@"
+}
+compdef dotfiles=git
 
 export COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 
@@ -293,3 +297,4 @@ export COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 
 # Added by Antigravity CLI installer
 export PATH="/Users/aaron/.local/bin:$PATH"
+

@@ -379,11 +379,7 @@ fi
 # Original PATH is set in /etc/profile
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
-#For Java
-# export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.14/jre/
-# [ ! -z $JAVA_HOME ] && export PATH=$JAVA_HOME/bin:$PATH
-# export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/td.jar:$JAVA_HOME/lib/rt.jar:.
-#export PATH=$JAVA_HOME/bin:/$HOME/.local/my-cross/bin:$PATH
+type -P mise >/dev/null && eval "$(mise activate bash)"
 
 # Append our default paths
 appendpath() {
@@ -405,6 +401,12 @@ prependpath() {
     #*)   test -d $1 && PATH="$1:$PATH" || true
   esac
 }
+
+#For Java
+# export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.14/jre/
+# [ ! -z $JAVA_HOME ] && export PATH=$JAVA_HOME/bin:$PATH
+# export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/td.jar:$JAVA_HOME/lib/rt.jar:.
+#export PATH=$JAVA_HOME/bin:/$HOME/.local/my-cross/bin:$PATH
 
 # less and more, man
 # {
@@ -718,7 +720,6 @@ export LC_CTYPE=en_GB.UTF-8
 #export LC_CTYPE=pt_BR.UTF-8
 #export LC_TIME=en_DK.UTF-8
 
-# exports
 #export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 #export LD_LIBRARY_PATH=/lib:/usr/lib:/opt/lib
 
@@ -902,9 +903,10 @@ function prompt_git() {
 }
 
 # brew
-#export HOMEBREW_PREFIX=/opt/homebrew
-export HOMEBREW_PREFIX=$HOME/.brew
+#export HOMEBREW_PREFIX="$(brew --prefix)"
+export HOMEBREW_PREFIX="$HOME/.brew"
 prependpath ${HOMEBREW_PREFIX}/bin
+prependpath "$(brew --prefix)/opt/coreutils/libexec/gnubin"
 
 export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
 
@@ -912,11 +914,6 @@ export HOMEBREW_BUILD_FROM_SOURCE=1
 
 # No auto-update
 export HOMEBREW_NO_AUTO_UPDATE=1
-
-# export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
-# export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
-# prependpath "/opt/homebrew/opt/ruby/bin"
 
 # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
 # export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -949,31 +946,6 @@ if [ -f "$(command -v "ccache")" ]; then
 fi
 #}3
 
-export PKG_CONFIG_PATH=/usr/X11R6/lib/pkgconfig:/usr/lib/pkgconfig
-export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/share/lib:/usr/local/lib:/usr/X11R6/lib:/opt/lib
-export LD_LIBRARY_PATH=/opt/j2sdk1.4.2_04/jre:$LD_LIBRARY_PATH
-
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gen-lang-client-0832267004-2be0c36b9189.json"
-
-#export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
-export GOOGLE_CLOUD_PROJECT="gen-lang-client-0832267004"
-
-#export GOOGLE_CLOUD_LOCATION="YOUR_REGION"
-
-# tfenv
-appendpath "$HOME/.tfenv/bin"
-
-###Heroku Toolbelt
-# [ -d "$HOME/.local/heroku/bin" ] && export PATH="$HOME/.local/heroku/bin:$PATH"
-appendpath $HOME/.local/heroku/bin
-
-# startup programs {{{
-#export calendar=$HOME/.calendar/calendar.all
-
-export PATH=$PATH:$HOME/depot_tools
-
-BASH_PREEXEC_IN_ETC_BASHRC=
-
 # cargo
 test -e "$HOME/.cargo/env" && . "$HOME/.cargo/env" || true
 
@@ -987,23 +959,27 @@ appendpath $HOME/.rustup/toolchains/1.83.0-aarch64-apple-darwin/bin
 export WASMTIME_HOME="$HOME/.wasmtime"
 prependpath $WASMTIME_HOME/bin
 
-#perl5
-[ -d "$HOME/.local/perl5/bin" ] && export PATH="$HOME/.local/perl5/bin${PATH:+:${PATH}}"
-PERL5LIB="$HOME/.local/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
-export PERL5LIB
-PERL_LOCAL_LIB_ROOT="$HOME/.local/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
-export PERL_LOCAL_LIB_ROOT
-PERL_MB_OPT="--install_base \"$HOME/.local/perl5\""
-export PERL_MB_OPT
-PERL_MM_OPT="INSTALL_BASE=$HOME/.local/perl5"
-export PERL_MM_OPT
+export PKG_CONFIG_PATH=/usr/X11R6/lib/pkgconfig:/usr/lib/pkgconfig
+export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/share/lib:/usr/local/lib:/usr/X11R6/lib:/opt/lib
+export LD_LIBRARY_PATH=/opt/j2sdk1.4.2_04/jre:$LD_LIBRARY_PATH
 
-# The next line updates PATH for the Google Cloud SDK.
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gen-lang-client-0832267004-2be0c36b9189.json"
+
+#export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
+export GOOGLE_CLOUD_PROJECT="gen-lang-client-0832267004"
+
+#export GOOGLE_CLOUD_LOCATION="YOUR_REGION"
+
+prependpath $HOME/depot_tools
+
+# startup programs {{{
+#export calendar=$HOME/.calendar/calendar.all
+
+BASH_PREEXEC_IN_ETC_BASHRC=
+
 if [ -f '$HOME/google-cloud-sdk/path.bash.inc' ]; then
   source '$HOME/google-cloud-sdk/path.bash.inc'
 fi
-
-export PATH
 
 #bind
 # Bash is using readline to handle the prompt.
@@ -1533,15 +1509,6 @@ export GO111MODUL=on
 # go: downloading gopkg.in/ini.v1 v1.67.0
 # go: downloading golang.org/x/sys v0.45.0
 
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-export ASDF_DATA_DIR="$HOME/.asdf"
-
-# OLD
-# . $HOME/.asdf/asdf.sh
-# . $HOME/.asdf/completions/asdf.bash
-# OLD
-. <(asdf completion bash)
-
 # ruby
 
 # hash: hash [-lr] [-p pathname] [-dt] [name ...]
@@ -1840,19 +1807,13 @@ fi
 
 PS1="#${debian_chroot:+($debian_chroot)} \D{W%V.%u} \t \l \s-\v \[\033[41;33m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]/\n\$ "
 
-export PATH="/Users/aaron/.local/bin:$PATH"
 export LABS="${HOME}/.local"
 export BBDIR="${LABS}/bitbake"
-
 appendpath ${BBDIR}/bin
 
-export PATH="$HOME/.deno/bin:$PATH"
-
-appendpath '/opt/bin'
-appendpath '/usr/games'
+prependpath "$HOME/.deno/bin"
 
 # set PATH so it includes user's private bin if it exists
-
 #prependpath "$HOME/.local/bin"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 prependpath "$DIR/.local/bin"
@@ -1861,8 +1822,15 @@ prependpath "$DIR/.local/bin"
 appendpath $HOME/.antigravity/antigravity/bin
 
 # opencode
-export PATH=/Users/aaron/.opencode/bin:$PATH
-
-type -P mise >/dev/null && eval "$(mise activate bash)"
+appendpath $HOME/.opencode/bin
 
 [[ -f ~/.local/bin/ble.sh ]] && source ~/.local/bin/ble.sh
+
+# alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
+dotfiles() {
+  /usr/bin/git --git-dir="$HOME/aarons/" --work-tree="$HOME" "$@"
+}
+
+if type __git_complete &>/dev/null; then
+  __git_complete dotfiles __git_main
+fi
