@@ -51,7 +51,8 @@ alias psmem='ps auxf | sort -nr -k 4'
 alias helpme='cht.sh --shell'
 
 # Recent installed packages
-alias rg="rg -."
+#alias rg="rg -."
+alias rg="rg --color=auto"
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias repo="~/repo/repo"
 

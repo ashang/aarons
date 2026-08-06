@@ -1831,6 +1831,26 @@ dotfiles() {
   /usr/bin/git --git-dir="$HOME/aarons/" --work-tree="$HOME" "$@"
 }
 
+# update this PATH with version
+COMPLETION_PATH="${HOMEBREW_PREFIX}/Cellar/bash-completion@2/2.18.0/share/bash-completion"
+
+# shellcheck shell=sh disable=SC1091,SC2166,SC2268,SC3028,SC3044,SC3054
+# Check for interactive bash and that we haven't already been sourced.
+if [ "x${BASH_VERSION-}" != x -a "x${PS1-}" != x -a "x${BASH_COMPLETION_VERSINFO-}" = x ]; then
+
+  # Check for recent enough version of bash.
+  if [ "${BASH_VERSINFO[0]}" -gt 4 ] ||
+    [ "${BASH_VERSINFO[0]}" -eq 4 -a "${BASH_VERSINFO[1]}" -ge 2 ]; then
+    [ -r "${XDG_CONFIG_HOME:-$HOME/.config}/bash_completion" ] &&
+      . "${XDG_CONFIG_HOME:-$HOME/.config}/bash_completion"
+    if shopt -q progcomp && [ -r ${COMPLETION_PATH}/bash_completion ]; then
+      # Source completion code.
+      . ${COMPLETION_PATH}/bash_completion
+    fi
+  fi
+
+fi
+
 if type __git_complete &>/dev/null; then
   __git_complete dotfiles __git_main
 fi
