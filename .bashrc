@@ -379,8 +379,6 @@ fi
 # Original PATH is set in /etc/profile
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
-type -P mise >/dev/null && eval "$(mise activate bash)"
-
 # Append our default paths
 appendpath() {
   case ":$PATH:" in
@@ -1491,7 +1489,8 @@ bgrun() {
 ####Go
 #export GOPROXY=https://goproxy.cn,direct
 #export GOPROXY=socks5://127.0.0.1:10080
-export GOPROXY=https://goproxy.io,direct
+#export GOPROXY=https://goproxy.io,direct
+export GOPROXY=https://proxy.golang.org,direct
 
 ## Set environment variable allow bypassing the proxy for specified repos (optional)
 #export GOPRIVATE=git.mycompany.com,github.com/my/private
@@ -1854,3 +1853,9 @@ fi
 if type __git_complete &>/dev/null; then
   __git_complete dotfiles __git_main
 fi
+
+# set -x
+#echo $PATH
+type -P mise >/dev/null && eval "$(mise activate bash)"
+#echo $PATH
+# set +x
