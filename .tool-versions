@@ -1,3 +1,7 @@
+bats 1.8.2
+bundler 2.4.10
+golang 1.26.3
 nodejs 25.2.1
 ruby 4.0.1
-bundler 2.4.10
+shellcheck 0.10.0
+shfmt      3.7.0
