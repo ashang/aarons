@@ -1,5 +1,5 @@
 bats 1.8.2
-bundler 2.4.10
+bundler 2.5.22
 golang 1.26.3
 nodejs 25.2.1
 ruby 4.0.1
