@@ -1102,7 +1102,8 @@ alias py='python3'
 alias rmbra="rename 'y/)(/_/'"
 
 # NOT using `-u`, time is not reliable in many cases
-alias rsync='rsync -avz --progress --timeout=300 --max-size=100M --exclude=node_modules --exclude Library --exclude .cache'
+# alias rsync='rsync -avz --progress --timeout=300 --max-size=100M --exclude=node_modules --exclude Library --exclude .cache'
+alias rsync='rsync -avz --progress --timeout=300 --exclude=node_modules --exclude Library --exclude .cache'
 
 # acct - The GNU Accounting utilities for process and login accounting
 # surfraw - a fast unix command line interface to WWW
