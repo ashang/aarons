@@ -901,32 +901,34 @@ function prompt_git() {
 }
 
 # brew
-#export HOMEBREW_PREFIX="$(brew --prefix)"
-export HOMEBREW_PREFIX="$HOME/.brew"
-prependpath ${HOMEBREW_PREFIX}/bin
-prependpath "$(brew --prefix)/opt/coreutils/libexec/gnubin"
+if hash brew &>/dev/null; then
+  #export HOMEBREW_PREFIX="$(brew --prefix)"
+  export HOMEBREW_PREFIX="$HOME/.brew"
+  prependpath ${HOMEBREW_PREFIX}/bin
+  prependpath "$(brew --prefix)/opt/coreutils/libexec/gnubin"
 
-export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
+  export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
 
-export HOMEBREW_BUILD_FROM_SOURCE=1
+  export HOMEBREW_BUILD_FROM_SOURCE=1
 
-# No auto-update
-export HOMEBREW_NO_AUTO_UPDATE=1
+  # No auto-update
+  export HOMEBREW_NO_AUTO_UPDATE=1
 
-# https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
-# export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-#export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-#export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+  # https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/
+  # export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+  #export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+  #export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
 
-export MANPATH="${HOMEBREW_PREFIX}/share/man:$MANPATH"
-export INFOPATH="${HOMEBREW_PREFIX}/share/info:$INFOPATH"
+  export MANPATH="${HOMEBREW_PREFIX}/share/man:$MANPATH"
+  export INFOPATH="${HOMEBREW_PREFIX}/share/info:$INFOPATH"
 
-# git -C "$(brew --repo)" remote set-url origin https://github.com/Homebrew/brew
+  # git -C "$(brew --repo)" remote set-url origin https://github.com/Homebrew/brew
 
-#export HOMEBREW_INSTALL_FROM_API=1
-# export HOMEBREW_API_DOMAIN
-# export HOMEBREW_BOTTLE_DOMAIN
-# export HOMEBREW_PIP_INDEX_URL
+  #export HOMEBREW_INSTALL_FROM_API=1
+  # export HOMEBREW_API_DOMAIN
+  # export HOMEBREW_BOTTLE_DOMAIN
+  # export HOMEBREW_PIP_INDEX_URL
+fi
 
 #QUILT
 #export QUILT_PATCHES="debian/patches"
