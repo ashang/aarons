@@ -1825,10 +1825,12 @@ appendpath $HOME/.opencode/bin
 
 [[ -f ~/.local/bin/ble.sh ]] && source ~/.local/bin/ble.sh
 
+# function is better than alias
 # alias dotfiles='/usr/bin/git --git-dir=$HOME/aarons/ --work-tree=$HOME'
 dotfiles() {
   /usr/bin/git --git-dir="$HOME/aarons/" --work-tree="$HOME" "$@"
 }
+# dotfiles config --local status.showUntrackedFiles no
 
 # update this PATH with version
 COMPLETION_PATH="${HOMEBREW_PREFIX}/Cellar/bash-completion@2/2.18.0/share/bash-completion"
