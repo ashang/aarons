@@ -1,0 +1,11 @@
+*
+
+!.gitignore
+
+!.bashrc
+!.zshrc
+!.gitconfig
+
+!.config/
+.config/*
+!.config/nvim/
