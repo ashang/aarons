@@ -979,11 +979,12 @@ alias sv='source ~/.config/vim/scripts/gb.bash sv'
 alias vd="vimdiff"
 alias vim="/usr/bin/vim -p"
 
+#if type -P nvim &>/dev/null; then
+if command -v nvim &>/dev/null; then
 #if hash nvim &>/dev/null; then
-if type nvim &>/dev/null; then
   alias vi='nvim -p'
   alias vd='\nvim -d'
-  #alias vim='nvim -p'
+  alias vim='nvim -p'
 fi
 
 # ls, color, etc.

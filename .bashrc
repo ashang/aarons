@@ -377,7 +377,6 @@ fi
 # NEVER export PATH without quoting $PATH
 # Deal with PATH only in .bashrc, and source it in ~/.bash_profile
 # Original PATH is set in /etc/profile
-PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
 # Append our default paths
 appendpath() {
@@ -1591,9 +1590,6 @@ appendpath $GEM_PATH/bin
 # export TERM="xterm-256color"
 #/etc/terminfo/*
 
-# Alias definitions.
-test -r $HOME/.aliases && source $HOME/.aliases
-
 # bash-completion
 #trap '. /etc/bash_completion ; trap USR2' USR2
 #{ sleep 0.01 ; builtin kill -USR2 $$ ; } & disown
@@ -1863,3 +1859,6 @@ fi
 type -P mise >/dev/null && eval "$(mise activate bash)"
 #echo $PATH
 # set +x
+
+# Alias definitions.
+test -r $HOME/.aliases && source $HOME/.aliases
