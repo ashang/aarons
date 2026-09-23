@@ -1232,8 +1232,6 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # Canonical hex dump; some systems have this symlinked
 [ "$BASH_VERSINFO" -ge "4" ] && type -t hd > /dev/null || alias hd="hexdump -C"
 
-alias cargo='cargo -vv --color=auto'
-
 # some more ls aliases
 #alias ll='ls -l'
 #alias la='ls -A'
@@ -1241,6 +1239,7 @@ alias cargo='cargo -vv --color=auto'
 
 #short-cut to the commands.
 alias c='clear'
+alias cargo='cargo -vv --color=auto'
 alias cg='grep -in --color -I'
 alias cgr='grep -in --color -rI'
 alias gg='git grep -a -i'
