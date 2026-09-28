@@ -111,6 +111,8 @@ short_pwd() {
 
 # echo "$(basename "$(dirname "$PWD")")/${PWD##*/}"
 
+PATH=/opt/homebrew/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec; export PATH
+
 #path="$PWD"
 #IFS='/' read -ra parts <<<"$path"
 #

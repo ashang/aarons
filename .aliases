@@ -1,4 +1,4 @@
-# Alias definitions. a separate file
+## Alias definitions. a separate file
 # For BASH, source it explicitly, or linked to ~/.bash_aliases
 
 #set -u
