@@ -111,7 +111,8 @@ short_pwd() {
 
 # echo "$(basename "$(dirname "$PWD")")/${PWD##*/}"
 
-PATH=/opt/homebrew/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec; export PATH
+PATH=/opt/homebrew/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
+export PATH
 
 #path="$PWD"
 #IFS='/' read -ra parts <<<"$path"
@@ -952,7 +953,7 @@ test -e "$HOME/.cargo/env" && . "$HOME/.cargo/env" || true
 
 appendpath $HOME/.cargo/bin
 
-appendpath $HOME/.rustup/toolchains/1.83.0-aarch64-apple-darwin/bin
+appendpath $HOME/.rustup/toolchains/1.85.0-aarch64-apple-darwin/bin
 
 # CARGO_HTTP_USE_HYPER=true : force CARGO HTTP USE HTTP/1.1
 # export CARGO_HTTP_USE_HYPER=true
@@ -1023,7 +1024,7 @@ bind "set bind-tty-special-chars on" #punctuations are not word delimiters
 #export GPG_TTY="$(tty)"
 
 #fix java ugliness
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+#export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 
 bash_prompt_command() {
   # How many characters of the $PWD should be kept
@@ -1064,8 +1065,6 @@ if [ -n "$TMUX" ]; then
 
   export PROMPT_COMMAND="set_tmux_pane_title; $PROMPT_COMMAND"
 fi
-
-# export QT_SELECT=4
 
 #Completion options
 bind "set show-all-if-ambiguous on" #enable single tab completion
@@ -1864,3 +1863,30 @@ type -P mise >/dev/null && eval "$(mise activate bash)"
 
 # Alias definitions.
 test -r $HOME/.aliases && source $HOME/.aliases
+
+case "$(uname -s)" in
+Linux)
+  if [[ "${XDG_SESSION_TYPE:-}" == "wayland" || -n "${WAYLAND_DISPLAY:-}" ]]; then
+
+    # Most pure GTK3 apps use wayland by default, but some,
+    # like Firefox, need the backend to be explicitely selected.
+    export MOZ_ENABLE_WAYLAND=1
+    export MOZ_DBUS_REMOTE=1
+    export GTK_CSD=0
+
+    # qt wayland
+    export QT_QPA_PLATFORM="wayland"
+    export QT_QPA_PLATFORMTHEME=qt5ct
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+
+    #Java XWayland blank screens fix
+    export _JAVA_AWT_WM_NONREPARENTING=1
+
+  else
+    unset QT_QPA_PLATFORM
+  fi
+  ;;
+*)
+  unset QT_QPA_PLATFORM
+  ;;
+esac
