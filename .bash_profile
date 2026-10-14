@@ -1,3 +1,4 @@
+#!/bin/bash
 ## Kiro CLI pre block. Keep at the top of this file.
 #[[ -z "${Q_TERM_DISABLED:-}" && -f "${HOME}/Library/Application Support/kiro-cli/shell/bash_profile.pre.bash" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/bash_profile.pre.bash"
 
