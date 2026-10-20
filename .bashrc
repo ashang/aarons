@@ -453,8 +453,6 @@ export LESSCHARSET=UTF-8
 
 # export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
-# complete -p | less
-
 #man() {
 #    LESS_TERMCAP_md=$'\e[01;31m' \
 #    LESS_TERMCAP_me=$'\e[0m' \
@@ -1145,6 +1143,15 @@ function start_agent {
   chmod 600 ${SSH_ENV}
   . ${SSH_ENV} >/dev/null
   ssh-add
+
+  #For properly registering the ConsoleKit session, you probably want to add --with-ck-launch with startxfce4
+  #By default xfce4-session tries to start the gpg- or ssh-agent. To disable this run the following commands:
+  #xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool -s false
+  #xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool -s false
+
+  #To force the ssh-agent instead of the gpg-agent use the following command:
+  #xfconf-query -c xfce4-session -p /startup/ssh-agent/type -n -t string -s ssh-agent
+
 }
 
 # if we have private ssh key(s), start ssh-agent and add the key(s)
@@ -1359,14 +1366,6 @@ test -f .bashrc-d/maven-bash-completion.bash && . .bashrc-d/maven-bash-completio
 
 # Docker
 [ -f ~/.bashrc_docker ] && . ~/.bashrc_docker
-
-#For properly registering the ConsoleKit session, you probably want to add --with-ck-launch with startxfce4
-#By default xfce4-session tries to start the gpg- or ssh-agent. To disable this run the following commands:
-#xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool -s false
-#xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool -s false
-
-#To force the ssh-agent instead of the gpg-agent use the following command:
-#xfconf-query -c xfce4-session -p /startup/ssh-agent/type -n -t string -s ssh-agent
 
 #### alacritty
 [ "$BASH" ] && test -r "$HOME/.config/alacritty/alacritty.bash" && source "$HOME/.config/alacritty/alacritty.bash"
@@ -1613,9 +1612,6 @@ if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -z "${BASH_COMPLETION_COMPAT_DIR-}
   fi
 
 fi
-
-complete -W menuconfig make
-complete -cf sudo
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 # enable programmable completion features (you don't need to enable
@@ -1891,3 +1887,7 @@ Linux)
   unset QT_QPA_PLATFORM
   ;;
 esac
+
+# complete -p | less
+complete -W menuconfig make
+complete -cf sudo
