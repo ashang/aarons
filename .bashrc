@@ -1888,6 +1888,15 @@ Linux)
   ;;
 esac
 
+## if _apt
+#if declare -F _apt >/dev/null 2>&1; then
+#  complete -F _apt sudo apt apt-get
+#elif [ -f /usr/share/bash-completion/completions/apt ]; then
+#  . /usr/share/bash-completion/completions/apt
+#  complete -F _apt sudo apt apt-get
+#fi
+#
+#complete -cf sudo
+
 # complete -p | less
 complete -W menuconfig make
-complete -cf sudo
