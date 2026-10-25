@@ -1093,7 +1093,7 @@ settitle() {
   echo -ne "\e]2;$@\a\e]1;$@\a"
 }
 
-# PATH for `rm` backup:
+# PATH for `rm` backup: NO SPACE please
 MYSAV=${MYSAV:-"$HOME/.local/share/Trash"}
 [ -z $MYSAV ] && MYSAV="/var/tmp/Trash"
 [ -d $MYSAV ] || \mkdir -p ${MYSAV}
@@ -1103,7 +1103,7 @@ function rm {
   # remove: $ rm files
   # use \rm to call original rm, or `which rm`
 
-  (($# == 0)) && {
+  ((0 == $#)) && {
     echo "No parameters!"
     return 0
   }
@@ -1119,7 +1119,7 @@ function rm {
     elif test -e "$myfile"; then
       #savepath=`pwd`
       #mv -f $(basename $myfile) ${MYSAV}/$(find $(pwd) -maxdepth 1 -name $(basename $myfile)  |tr "/" "-")--`date +%Y-%m-%d-%H-%M-%S`
-      mv -f "$myfile" ${MYSAV}/$(date +%Y%m%d-%H%M%S-%s)_$(echo $(basename -- "$myfile") | tr "[\-\ \!\)\(\]\[\|\'\;\:\&\,\#\@\{\}\^]" "_")
+      mv -f "$myfile" ${MYSAV}/$(date +%Y%m%d-%H%M%S-%s)_$(basename -- "$myfile" | tr "[\-\ \!\)\(\]\[\|\'\;\:\&\,\#\@\{\}\^]" "_")
       #cd "${savepath}"
     else
       echo "$myfile: No such file or directory."
