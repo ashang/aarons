@@ -1,0 +1,11 @@
+[tools]
+"gem:bundler" = "latest"
+golang = "1.26.3"
+nodejs = "25.2.1"
+ruby = "4.0.9"
+#bats 1.8.2
+#golang 1.26.3
+#nodejs 25.2.1
+#ruby 4.0.9
+#shellcheck 0.10.0
+#shfmt      3.7.0
