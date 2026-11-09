@@ -1,8 +1,14 @@
 [tools]
-"gem:bundler" = "latest"
+#"gem:bundler" = "latest"
+#"gem:bundler" = "latest"
+ruby = "4.0.1"
+"gem:bundler" = "4.0.23"
 golang = "1.26.3"
 nodejs = "25.2.1"
-ruby = "4.0.9"
+
+[settings.ruby]
+compile = false
+#ruby = "4.0.9"
 #bats 1.8.2
 #golang 1.26.3
 #nodejs 25.2.1
