@@ -163,7 +163,7 @@ set softwrap
 set speller "aspell -x -c"
 
 ## Allow nano to be suspended.
-set suspend
+# set suspend
 
 ## Use this tab size instead of the default; it must be greater than 0.
 # set tabsize 8
@@ -248,9 +248,7 @@ set tabsize 4
 ## them easier to remember and faster to type using nano's -Y option.
 ##
 ## To include all existing syntax definitions, you can do:
-include "/usr/share/nano/*.nanorc"
-
-include /usr/share/nano-syntax-highlighting/*.nanorc
+include "/usr/share/nano*/*.nanorc"
 
 ## Key bindings.
 ## See nanorc(5) (section REBINDING KEYS) for more details on this.
@@ -314,7 +312,3 @@ icolor cyan "^[[:space:]]*##.*$"
 
 ## Trailing whitespace
 icolor ,green "[[:space:]]+$"
-
-include /usr/share/nano/*.nanorc
-include /usr/share/nano*/*.nanorc
-
