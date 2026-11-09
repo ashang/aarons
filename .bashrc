@@ -501,7 +501,6 @@ export LESS_TERMCAP_so=$'\E[01;33m' # begin reverse video
 export LESS_TERMCAP_se=$'\E[0m'     # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'  # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'     # reset underline
-
 # }
 
 if [[ $- =~ i ]]; then
@@ -1528,7 +1527,7 @@ export GO111MODUL=on
 # $ gen env ; gen env home
 
 # A gem directory is a directory that holds gems.  The 'gem' command will lay
-# out and utilize the following structure:
+## out and utilize the following structure:
 #   bin               # installed bin scripts
 #   cache             # .gem files  ex: cache/gem_name.gem
 #   doc               # rdoc/ri     ex: doc/gem_name/rdoc
@@ -1556,10 +1555,10 @@ export GO111MODUL=on
 RUBY_VERSION=4.0.1
 export RUBY_VERSION
 
-##RUBY="$HOME/.rbenv/versions/3.4.1"
-RUBY="$HOME/.asdf/installs/ruby/4.0.1"
-#prependpath $RUBY_VERSION/bin
-prependpath $RUBY/bin
+###RUBY="$HOME/.rbenv/versions/3.4.1"
+#RUBY="$HOME/.asdf/installs/ruby/4.0.1"
+##prependpath $RUBY_VERSION/bin
+#prependpath $RUBY/bin
 
 ## Bundler / RubyGems will detect this kind of versioning path
 # gem install bundler
@@ -1575,9 +1574,9 @@ prependpath $RUBY/bin
 ## gem env
 #GEM_HOME: /path/to/your/gem_directory
 # GEM_HOME=$HOME/.local/share/gem/ruby/4.0.0
-# asdf will do so:
-export GEM_HOME="$HOME/.asdf/installs/ruby/4.0.1/lib/ruby/gems/4.0.0"
-export GEM_PATH="$GEM_HOME"
+## asdf will do so:
+#export GEM_HOME="$HOME/.asdf/installs/ruby/4.0.1/lib/ruby/gems/4.0.0"
+#export GEM_PATH="$GEM_HOME"
 
 # rbenv WILL manage GEM_HOME
 # rbenv Bundler might adjust GEM_HOME / GEM_PATH
