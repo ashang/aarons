@@ -28,16 +28,11 @@ alias as='apt-cache search'
 alias bb='bitbake -v'
 
 alias c='clear'
-
-alias c='clear'
 alias chmod='chmod -v'
 alias crontab='crontab -i'
 
 alias cv='convmv -f gbk -t UTF-8 -r --notest'
 alias tou8='iconv -f gbk -t UTF-8'
-
-#alias curl="curl --user-agent 'noleak'"
-alias curl='curl -L -C -'
 
 ## get top 10 shell commands:
 #alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
@@ -58,46 +53,46 @@ alias rg="rg --color=auto"
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias repo="~/repo/repo"
 
-alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-alias fix_term='echo -e "\033c"'            # fix_term:     Reset the conosle.  Similar to the reset command
+alias fix_stty='stty sane'       # fix_stty:     Restore terminal settings when screwed up
+alias fix_term='echo -e "\033c"' # fix_term:     Reset the conosle.  Similar to the reset command
 
 ## Docker
 alias docker-pid="sudo docker inspect --format '{{.State.Pid}}'"
 alias docker-ip="sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias docker-clean='docker rm `docker ps -f status=exited --format {{.ID}}`'
 
-alias dbl='docker build'        # Build an image from a Dockerfile
-alias dcin='docker container inspect'        # Display detailed information on one or more containers
-alias dcls='docker container ls'        # List all the running docker containers
-alias dclsa='docker container ls -a'        # List all running and stopped containers
-alias dib='docker image build'        # Build an image from a Dockerfile (same as docker build)
-alias dii='docker image inspect'        # Display detailed information on one or more images
-alias dils='docker image ls'        # List docker images
-alias dipu='docker image push'        # Push an image or repository to a remote registry
-alias dirm='docker image rm'        # Remove one or more images
-alias dit='docker image tag'        # Add a name and tag to a particular image
+alias dbl='docker build'                 # Build an image from a Dockerfile
+alias dcin='docker container inspect'    # Display detailed information on one or more containers
+alias dcls='docker container ls'         # List all the running docker containers
+alias dclsa='docker container ls -a'     # List all running and stopped containers
+alias dib='docker image build'           # Build an image from a Dockerfile (same as docker build)
+alias dii='docker image inspect'         # Display detailed information on one or more images
+alias dils='docker image ls'             # List docker images
+alias dipu='docker image push'           # Push an image or repository to a remote registry
+alias dirm='docker image rm'             # Remove one or more images
+alias dit='docker image tag'             # Add a name and tag to a particular image
 alias dlo='docker container logs'        # Fetch the logs of a docker container
 alias dnc='docker network create'        # Create a new network
-alias dncn='docker network connect'        # Connect a container to a network
-alias dndcn='docker network disconnect'        # Disconnect a container from a network
-alias dni='docker network inspect'        # Return information about one or more networks
-alias dnls='docker network ls'        # networks the engine daemon knows about, including those spanning multiple hosts
-alias dnrm='docker network rm'        # Remove one or more networks
+alias dncn='docker network connect'      # Connect a container to a network
+alias dndcn='docker network disconnect'  # Disconnect a container from a network
+alias dni='docker network inspect'       # Return information about one or more networks
+alias dnls='docker network ls'           # networks the engine daemon knows about, including those spanning multiple hosts
+alias dnrm='docker network rm'           # Remove one or more networks
 alias dpo='docker container port'        # List port mappings or a specific mapping for the container
-alias dr='docker container run'        # Create a new container and start it using the specified command
-alias drit='docker container run -it'        # Create a new container and start it in an interactive shell
-alias drm='docker container rm'        # Remove the specified container(s)
-alias drm!='docker container rm -f'        # Force the removal of a running container (uses SIGKILL)
-alias dst='docker container start'        # Start one or more stopped containers
-alias drs='docker container restart'        # Restart one or more containersa
-alias dsta='docker stop $(docker ps -q)'        # Stop all running containers
-alias dstp='docker container stop'        # Stop one or more running containers
-alias dtop='docker top'        # Display the running processes of a container
+alias dr='docker container run'          # Create a new container and start it using the specified command
+alias drit='docker container run -it'    # Create a new container and start it in an interactive shell
+alias drm='docker container rm'          # Remove the specified container(s)
+alias drm!='docker container rm -f'      # Force the removal of a running container (uses SIGKILL)
+alias dst='docker container start'       # Start one or more stopped containers
+alias drs='docker container restart'     # Restart one or more containersa
+alias dsta='docker stop $(docker ps -q)' # Stop all running containers
+alias dstp='docker container stop'       # Stop one or more running containers
+alias dtop='docker top'                  # Display the running processes of a container
 alias dvi='docker volume inspect'        # Display detailed information about one or more volumes
-alias dvls='docker volume ls'        # List all the volumes known to docker
-alias dvprune='docker volume prune'        # Cleanup dangling volumes
+alias dvls='docker volume ls'            # List all the volumes known to docker
+alias dvprune='docker volume prune'      # Cleanup dangling volumes
 alias dxc='docker container exec'        # Run a new command in a running container
-alias dxcit='docker container exec -it'        # Run a new command in a running container in an interactive shell
+alias dxcit='docker container exec -it'  # Run a new command in a running container in an interactive shell
 ## alias:package-manager
 
 # `emerge` (Portage Enoch Merge) ... `em`, `es`, `esync`, `eb`, `er`, `ers`, `emfu`, `elip`
@@ -137,61 +132,61 @@ alias fbmplayer='mplayer -vo fbdev -fs -zoom'
 alias fblinks='links2 -driver fb'
 
 # do we have GNU ls with color-support?
-if ls --help 2>/dev/null | grep -- --color= >/dev/null && [[ "$TERM" != dumb ]] ; then
-    #a1# execute \kbd{@a@}:\quad ls with colors
-    alias ls='ls -b -CF --color=auto'
-    #a1# execute \kbd{@a@}:\quad list all files, with colors
-    alias la='ls -la --color=auto'
-    #a1# long colored list, without dotfiles (@a@)
-    alias ll='ls -l --color=auto'
-    #a1# long colored list, human readable sizes (@a@)
-    alias lh='ls -hAl --color=auto'
-    #a1# List files, append qualifier to filenames \\&\quad(\kbd{/} for directories, \kbd{@} for symlinks ...)
-    alias l='ls -lF --color=auto'
+if ls --help 2>/dev/null | grep -- --color= >/dev/null && [[ "$TERM" != dumb ]]; then
+  #a1# execute \kbd{@a@}:\quad ls with colors
+  alias ls='ls -b -CF --color=auto'
+  #a1# execute \kbd{@a@}:\quad list all files, with colors
+  alias la='ls -la --color=auto'
+  #a1# long colored list, without dotfiles (@a@)
+  alias ll='ls -l --color=auto'
+  #a1# long colored list, human readable sizes (@a@)
+  alias lh='ls -hAl --color=auto'
+  #a1# List files, append qualifier to filenames \\&\quad(\kbd{/} for directories, \kbd{@} for symlinks ...)
+  alias l='ls -lF --color=auto'
 else
-    alias ls='ls -b -CF'
-    alias la='ls -la'
-    alias ll='ls -l'
-    alias lh='ls -hAl'
-    alias l='ls -lF'
+  alias ls='ls -b -CF'
+  alias la='ls -la'
+  alias ll='ls -l'
+  alias lh='ls -hAl'
+  alias l='ls -lF'
 fi
 
 alias mdstat='cat /proc/mdstat'
 
 # generate alias named "$KERNELVERSION-reboot" so you can use boot with kexec:
-if [[ -x /sbin/kexec ]] && [[ -r /proc/cmdline ]] ; then
-    alias "$(uname -r)-reboot"="kexec -l --initrd=/boot/initrd.img-"$(uname -r)" --command-line=\"$(cat /proc/cmdline)\" /boot/vmlinuz-"$(uname -r)""
+if [[ -x /sbin/kexec ]] && [[ -r /proc/cmdline ]]; then
+  alias "$(uname -r)-reboot"="kexec -l --initrd=/boot/initrd.img-"$(uname -r)" --command-line=\"$(cat /proc/cmdline)\" /boot/vmlinuz-"$(uname -r)""
 fi
 
 # set up software synthesizer via speakup
 swspeak() {
-    if [ -x /usr/sbin/swspeak-setup ] ; then
-       setopt singlelinezle
-       unsetopt prompt_cr
-       export PS1="%m%# "
-       /usr/sbin/swspeak-setup $@
-     else # old version:
-        if ! [[ -r /dev/softsynth ]] ; then
-            flite -o play -t "Sorry, software synthesizer not available. Did you boot with swspeak bootoption?"
-            return 1
-        else
-           setopt singlelinezle
-           unsetopt prompt_cr
-           export PS1="%m%# "
-            nice -n -20 speechd-up
-            sleep 2
-            flite -o play -t "Finished setting up software synthesizer"
-        fi
-     fi
+  if [ -x /usr/sbin/swspeak-setup ]; then
+    setopt singlelinezle
+    unsetopt prompt_cr
+    export PS1="%m%# "
+    /usr/sbin/swspeak-setup $@
+  else # old version:
+    if ! [[ -r /dev/softsynth ]]; then
+      flite -o play -t "Sorry, software synthesizer not available. Did you boot with swspeak bootoption?"
+      return 1
+    else
+      setopt singlelinezle
+      unsetopt prompt_cr
+      export PS1="%m%# "
+      nice -n -20 speechd-up
+      sleep 2
+      flite -o play -t "Finished setting up software synthesizer"
+    fi
+  fi
 }
 
 # make sure it is not assigned yet
 utf2iso() {
-    if isutfenv ; then
-        for ENV in $(env | command grep -i '.utf') ; do
-            eval export "$(echo $ENV | sed 's/UTF-8/iso885915/ ; s/utf8/iso885915/')"
-        done
-    fi
+  if isutfenv; then
+    for ENV in $(env | command grep -i '.utf'); do
+      eval export "$(echo $ENV | sed 's/UTF-8/iso885915/ ; s/utf8/iso885915/')"
+    done
+  fi
 }
 
 # get top 10 shell commands:
@@ -285,7 +280,7 @@ alias wget="wget -U 'User-Agent' -c --content-disposition"
 #alias wget="wget -U ' ' -c --content-disposition"
 #alias wget="wget -U '\ ' -c --content-disposition"
 
-alias whence='type -a'                        # where, of a sort
+alias whence='type -a' # where, of a sort
 alias where="type -all"
 
 # which for debianutils vs GNU
@@ -311,35 +306,35 @@ alias CH="./configure --help"
 #a2# Execute \kbd{ls -lSrah}
 alias dir="ls -lSrah"
 #a2# Only show dot-directories
-alias lad='ls -d .*(/)'                # only show dot-directories
+alias lad='ls -d .*(/)' # only show dot-directories
 #a2# Only show dot-files
-alias lsa='ls -a .*(.)'                # only show dot-files
+alias lsa='ls -a .*(.)' # only show dot-files
 
 #a2# Only files with setgid/setuid/sticky flag
-alias lss='ls -l *(s,S,t)'             # only files with setgid/setuid/sticky flag
+alias lss='ls -l *(s,S,t)' # only files with setgid/setuid/sticky flag
 #a2# Only show 1st ten symlinks
-alias lsl='ls -l *(@)'                 # only symlinks
+alias lsl='ls -l *(@)' # only symlinks
 #a2# Display only executables
-alias lsx='ls -l *(*)'                 # only executables
+alias lsx='ls -l *(*)' # only executables
 #a2# Display world-{readable,writable,executable} files
-alias lsw='ls -ld *(R,W,X.^ND/)'       # world-{readable,writable,executable} files
+alias lsw='ls -ld *(R,W,X.^ND/)' # world-{readable,writable,executable} files
 #a2# Display the ten biggest files
-alias lsbig="ls -flh *(.OL[1,10])"     # display the biggest files
+alias lsbig="ls -flh *(.OL[1,10])" # display the biggest files
 #a2# Only show directories
-alias lsd='ls -d *(/)'                 # only show directories
+alias lsd='ls -d *(/)' # only show directories
 #a2# Only show empty directories
-alias lse='ls -d *(/^F)'               # only show empty directories
+alias lse='ls -d *(/^F)' # only show empty directories
 #a2# Display the ten newest files
-alias lsnew="ls -rl *(D.om[1,10])"     # display the newest files
+alias lsnew="ls -rl *(D.om[1,10])" # display the newest files
 #a2# Display the ten oldest files
-alias lsold="ls -rtlh *(D.om[1,10])"   # display the oldest files
+alias lsold="ls -rtlh *(D.om[1,10])" # display the oldest files
 #a2# Display the ten smallest files
-alias lssmall="ls -Srl *(.oL[1,10])"   # display the smallest files
+alias lssmall="ls -Srl *(.oL[1,10])" # display the smallest files
 
 alias rpg='rpm -qa | grep'
 
 # debian stuff
-if [[ -r /etc/debian_version ]] ; then
+if [[ -r /etc/debian_version ]]; then
   #a3# Execute \kbd{apt-cache search}
   alias acs='apt-cache search'
   #a3# Execute \kbd{apt-cache show}
@@ -364,29 +359,29 @@ if [[ -r /etc/debian_version ]] ; then
   # debian upgrade
   #f3# Execute \kbd{apt-get update \&\& }\\&\quad \kbd{apt-get dist-upgrade}
   upgrade() {
-      emulate -L zsh
-      if [[ -z $1 ]] ; then
-          $SUDO apt-get update
-          $SUDO apt-get -u upgrade
-      else
-          ssh $1 $SUDO apt-get update
-          # ask before the upgrade
-          local dummy
-          ssh $1 $SUDO apt-get --no-act upgrade
-          echo -n 'Process the upgrade?'
-          read -q dummy
-          if [[ $dummy == "y" ]] ; then
-              ssh $1 $SUDO apt-get -u upgrade --yes
-          fi
+    emulate -L zsh
+    if [[ -z $1 ]]; then
+      $SUDO apt-get update
+      $SUDO apt-get -u upgrade
+    else
+      ssh $1 $SUDO apt-get update
+      # ask before the upgrade
+      local dummy
+      ssh $1 $SUDO apt-get --no-act upgrade
+      echo -n 'Process the upgrade?'
+      read -q dummy
+      if [[ $dummy == "y" ]]; then
+        ssh $1 $SUDO apt-get -u upgrade --yes
       fi
+    fi
   }
 
   alias uirfs='sudo update-initramfs -u'
 
   #a1# Take a look at the syslog: \kbd{\$PAGER /var/log/syslog}
-  alias llog="${PAGER:-} /var/log/syslog"     # take a look at the syslog
+  alias llog="${PAGER:-} /var/log/syslog" # take a look at the syslog
   #a1# Take a look at the syslog: \kbd{tail -f /var/log/syslog}
-  alias tlog="tail -f /var/log/syslog"    # follow the syslog
+  alias tlog="tail -f /var/log/syslog" # follow the syslog
 
 fi
 
@@ -461,10 +456,7 @@ alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
 alias CO='./configure'
 alias CH='./configure --help'
 
-alias chmod='chmod -v'
-
 ##### alias curl="curl --user-agent 'noleak'"
-#####
 alias curl='curl -L -C -'
 alias ch='curl -D- -o/dev/null'
 alias co='curl -O'
@@ -478,7 +470,6 @@ alias debug_off="sed -i 's/^#define LOG_NDEBUG 0/\/\/#define LOG_NDEBUG 0/g'"
 
 alias dl='dpkg -L'
 alias dlg='dpkg -l | grep'
-alias dlc='dlocate -i'
 alias dq='diff -qur --no-dereference'
 alias ds='dpkg -s'
 
@@ -587,29 +578,29 @@ if [[ "Darwin" == "$(uname)" ]]; then
   #alias cp='cp -pr -i'
   alias cp='\cp -a -i -v'
   alias psg='\ps aeux | grep'
-  alias w='w -i'    # sorted by idle time.
+  alias w='w -i' # sorted by idle time.
   alias who='who -u'
 else # assume Linux
   #alias cp='nocorrect cp'         # no spelling correction on cp
   # space and time efficient cp
   alias cp='cp -ai --reflink=auto --sparse=always'
 
-# -a = -pPR
-#  -R If source_file designates a directory, cp copies the directory and the entire subtree connected at that point.  If the source_file ends in a /, the
-#     contents of the directory are copied rather than the directory itself.  This option also causes symbolic links to be copied, rather than indirected
-#     through, and for cp to create special files rather than copying them as normal files.  Created directories have the same mode as the corresponding
-#     source directory, unmodified by the process' umask.
-#
-#     In -R mode, cp will continue copying even if errors are detected.
-#
-#     Note that cp copies hard-linked files as separate files.  If you need to preserve hard links, consider using tar(1), cpio(1), or pax(1) instead.
+  # -a = -pPR
+  #  -R If source_file designates a directory, cp copies the directory and the entire subtree connected at that point.  If the source_file ends in a /, the
+  #     contents of the directory are copied rather than the directory itself.  This option also causes symbolic links to be copied, rather than indirected
+  #     through, and for cp to create special files rather than copying them as normal files.  Created directories have the same mode as the corresponding
+  #     source directory, unmodified by the process' umask.
+  #
+  #     In -R mode, cp will continue copying even if errors are detected.
+  #
+  #     Note that cp copies hard-linked files as separate files.  If you need to preserve hard links, consider using tar(1), cpio(1), or pax(1) instead.
 
   alias psg='\ps afux | grep'
   #\ip -c a &>/dev/null && alias ip='ip -c=auto'
   alias ip='ip --color=auto'
   alias ifconfig="ip a s"
   alias df='df -T -x tmpfs -x aufs -x devtmpfs -x overlay'
-  alias w='w -s'    # short format, no login time, JCPU or PCPU times.
+  alias w='w -s' # short format, no login time, JCPU or PCPU times.
 fi
 
 hash perl-rename &>/dev/null && alias prename='perl-rename'
@@ -631,27 +622,27 @@ alias mirrors='sudo reflector --latest 50 --number 20 --sort score --save /etc/p
 alias mirrora='sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist'
 alias pacrepo='sudo reflector -l 20 -f 10 --save /etc/pacman.d/mirrorlist'
 
-[ -x "$(command -v apt)" ] &&            alias pkgb='sudo apt build-deb'
-[ -x "$(command -v apt)" ] &&            alias pkgc='sudo dpkg-reconfigure'
-[ -x "$(command -v apt)" ] &&            alias pkgd='apt-get download'
-[ -x "$(command -v apt)" ] &&            alias pkge='sudo apt edit-sources'
-[ -x "$(command -v apt)" ] &&            alias pkgg='dpkg -l | grep'
-[ -x "$(command -v pacman)" ] &&        alias pkgg='pacman -Q | grep'
-[ -x "$(command -v apt)" ] &&            alias pkgh='cat /var/log/apt/history.log | less'
-[ -x "$(command -v apt)" ] &&            alias pkgi='sudo apt install'
-[ -x "$(command -v pacman)" ] &&        alias pkgi='sudo pacman -S'
-[ -x "$(command -v apt)" ] &&              alias pkgl='dpkg -L'
-[ -x "$(command -v pacman)" ] &&        alias pkgl='pacman -Ql'
-[ -x "$(command -v apt)" ] &&              alias pkgo='dpkg -S'
-[ -x "$(command -v pacman)" ] &&        alias pkgo='pacman -Qo'
-[ -x "$(command -v apt)" ] &&              alias pkgq='dpkg -s'
-[ -x "$(command -v pacman)" ] &&        alias pkgq='pacman -Qi'
-[ -x "$(command -v apt)" ] &&              alias pkgr='sudo apt autoremove --purge'
-[ -x "$(command -v pacman)" ] &&        alias pkgr='sudo pacman -Rs'
-[ -x "$(command -v apt)" ] &&              alias pkgs='apt-cache search'
-[ -x "$(command -v pacman)" ] &&        alias pkgs='pacman -Ss'
-[ -x "$(command -v apt)" ] &&              alias pkgu='sudo apt update && sudo apt disk-upgrade'
-[ -x "$(command -v pacman)" ] &&        alias pkgu='sudo pacman -Syu'
+[ -x "$(command -v apt)" ] && alias pkgb='sudo apt build-deb'
+[ -x "$(command -v apt)" ] && alias pkgc='sudo dpkg-reconfigure'
+[ -x "$(command -v apt)" ] && alias pkgd='apt-get download'
+[ -x "$(command -v apt)" ] && alias pkge='sudo apt edit-sources'
+[ -x "$(command -v apt)" ] && alias pkgg='dpkg -l | grep'
+[ -x "$(command -v pacman)" ] && alias pkgg='pacman -Q | grep'
+[ -x "$(command -v apt)" ] && alias pkgh='cat /var/log/apt/history.log | less'
+[ -x "$(command -v apt)" ] && alias pkgi='sudo apt install'
+[ -x "$(command -v pacman)" ] && alias pkgi='sudo pacman -S'
+[ -x "$(command -v apt)" ] && alias pkgl='dpkg -L'
+[ -x "$(command -v pacman)" ] && alias pkgl='pacman -Ql'
+[ -x "$(command -v apt)" ] && alias pkgo='dpkg -S'
+[ -x "$(command -v pacman)" ] && alias pkgo='pacman -Qo'
+[ -x "$(command -v apt)" ] && alias pkgq='dpkg -s'
+[ -x "$(command -v pacman)" ] && alias pkgq='pacman -Qi'
+[ -x "$(command -v apt)" ] && alias pkgr='sudo apt autoremove --purge'
+[ -x "$(command -v pacman)" ] && alias pkgr='sudo pacman -Rs'
+[ -x "$(command -v apt)" ] && alias pkgs='apt-cache search'
+[ -x "$(command -v pacman)" ] && alias pkgs='pacman -Ss'
+[ -x "$(command -v apt)" ] && alias pkgu='sudo apt update && sudo apt disk-upgrade'
+[ -x "$(command -v pacman)" ] && alias pkgu='sudo pacman -Syu'
 
 alias pqdt='pacman -Qdtv'
 alias auru='yay -Syua --noconfirm'
@@ -677,50 +668,45 @@ alias clean='echo -n "Really clean this directory?";
        echo "Not cleaned.";
     fi'
 
-function setenv () {
+function setenv() {
   export $1="$2"
 }
 
-function mkcp () {
+function mkcp() {
   #cp $(realpath "$1") ~/$(date +%s)$(echo $(realpath "$1" | tr ' /' '.' ))
   for f in "$@"; do
-    cp -av $(realpath "$f") ~/$(date +%s)$(echo $(realpath "$f" | tr ' /' '.' ))
+    cp -av $(realpath "$f") ~/$(date +%s)$(echo $(realpath "$f" | tr ' /' '.'))
   done
 }
 
-function add_alias ()
-{
-   local name=$1 value="$2"
-   echo alias $name=\'$value\' >>~/.aliases
-   eval alias $name=\'$value\'
-   alias $name
+function add_alias() {
+  local name=$1 value="$2"
+  echo alias $name=\'$value\' >>~/.aliases
+  eval alias $name=\'$value\'
+  alias $name
 }
 
 # "repeat" command.  Like:
 #    repeat 10 echo foo
-function repeat ()
-{
-    local count="$1" i;
-    shift;
-    for i in $(_seq 1 "$count");
-    do
-        eval "$@";
-    done
+function repeat() {
+  local count="$1" i
+  shift
+  for i in $(_seq 1 "$count"); do
+    eval "$@"
+  done
 }
 
 # Subfunction needed by 'repeat'.
-function _seq ()
-{
-    local lower upper output;
-    lower=$1 upper=$2;
+function _seq() {
+  local lower upper output
+  lower=$1 upper=$2
 
-    if [ $lower -ge $upper ]; then return; fi
-    while [ $lower -lt $upper ];
-    do
+  if [ $lower -ge $upper ]; then return; fi
+  while [ $lower -lt $upper ]; do
     echo -n "$lower "
-        lower=$(($lower + 1))
-    done
-    echo "$lower"
+    lower=$(($lower + 1))
+  done
+  echo "$lower"
 }
 
 alias grubup='sudo update-grub'
@@ -733,29 +719,29 @@ alias hw='hwinfo --short'
 
 # command -v htop &>/dev/null && alias top=htop
 
-alias big="expac -H M '%m\t%n' | sort -h | nl"                                  # Sort packages in MB
+alias big="expac -H M '%m\t%n' | sort -h | nl" # Sort packages in MB
 
 # Replace ls with exa
 if hash exa &>/dev/null; then
-  alias exa='exa -B' &&\
-  alias ls='exa --group-directories-first --icons' &&\
-  alias la='exa -a --color=auto --group-directories-first --icons'  &&\
-  alias ll='exa -l --color=auto --group-directories-first --icons'  &&\
-  alias l='exa -l --color=auto --group-directories-first --icons'  &&\
-  alias l.="exa -a | \grep -E '^\.'"    # show only dotfiles
-  alias lT='exa -aT --color=auto --group-directories-first --icons --level=3' &&\
-  # exa --oneline --reverse --sort=size
-  # exa --long --header --inode --git
-  # exa --long --tree --level=3
-# Size sort order opposite to \ls -lS
-  alias lS='exa -al --color=auto --group-directories-first --sort=size --reverse' &&\
-  alias lSr='exa -al --color=auto --group-directories-first --sort=size' &&\
-# Time sort order same to \ls -t
-  alias lt='exa -al --color=auto --group-directories-first --sort=time' &&\
-  alias ltr='exa -al --color=auto --group-directories-first --sort=time --reverse' &&\
+  alias exa='exa -B' &&
+    alias ls='exa --group-directories-first --icons' &&
+    alias la='exa -a --color=auto --group-directories-first --icons' &&
+    alias ll='exa -l --color=auto --group-directories-first --icons' &&
+    alias l='exa -l --color=auto --group-directories-first --icons' &&
+    alias l.="exa -a | \grep -E '^\.'" # show only dotfiles
+  alias lT='exa -aT --color=auto --group-directories-first --icons --level=3' &&
+    # exa --oneline --reverse --sort=size
+    # exa --long --header --inode --git
+    # exa --long --tree --level=3
+    # Size sort order opposite to \ls -lS
+    alias lS='exa -al --color=auto --group-directories-first --sort=size --reverse' &&
+    alias lSr='exa -al --color=auto --group-directories-first --sort=size' &&
+    # Time sort order same to \ls -t
+    alias lt='exa -al --color=auto --group-directories-first --sort=time' &&
+    alias ltr='exa -al --color=auto --group-directories-first --sort=time --reverse' &&
 
-# -sold same to \ls -t
-  alias lt='exa -l -sold'
+    # -sold same to \ls -t
+    alias lt='exa -l -sold'
   alias ltr='exa -l -snew'
   alias lta='exa -la -sold'
   alias ltra='exa -la -snew'
@@ -768,13 +754,13 @@ else
   alias lta='ls -ltA'
   alias ls='ls --color=auto'
   alias l='ls -CF'
-  alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
-  alias l='ls -lAv'   # show long listing but no hidden dotfiles except "."
-  alias l.='ls -alv --ignore=..'   # show long listing of all except ".."
+  alias l='ls -lav --ignore=.?*' # show long listing but no hidden dotfiles except "."
+  alias l='ls -lAv'              # show long listing but no hidden dotfiles except "."
+  alias l.='ls -alv --ignore=..' # show long listing of all except ".."
   alias l='ls -ah --color'
   alias l='ls -CF'
   #-A, --almost-all			do not list implied . and ..
-  alias l.='ls -lAv'   # show long listing of all except ".."
+  alias l.='ls -lAv' # show long listing of all except ".."
   alias la='ls -A'
   alias lf="ls -tr1 . | tail -1"
   alias ll='ls -CFlv'
@@ -790,60 +776,56 @@ else
 fi
 
 # Usage: kotin_run foo.kt <args-list> to compile foo.kt into foo.kt.jar and run it with the optional <args-list>
-ktr () { kotlinc "$1" -include-runtime -d "$1".jar && java -jar "$1".jar "${@:2}"; }
+ktr() { kotlinc "$1" -include-runtime -d "$1".jar && java -jar "$1".jar "${@:2}"; }
 
 # Usage: ghurl <filename>, will open the file on github.com. Respects branch name and repo name.
 # Filename can contain a fragment like "#L11" to highlight line 11 or "L22-L34" to hightlight from
 # line 22 to line 34.
-function ghurl()
-{
+function ghurl() {
   domain='https://github.com' &&
-  # Get the repo name and remove ".git" from the end
-  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
-  # Fallback to main branch
-  remoteBranch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo 'main') &&
-  # Remove origin prefix
-  remoteBranch=${remoteBranch#origin/} &&
-  currentDir=$PWD &&
-  gitTopLevel=$(git rev-parse --show-toplevel) &&
-  # Remove git base directory from the path.
-  pathRelativeToBaseRepo=${currentDir#${gitTopLevel}}/${1} &&
-  # echo Remote branch is ${remoteBranch} &&
-  # echo current Dir is ${currentDir} &&
-  # echo gitTopLevel is ${gitTopLevel} &&
-  # echo pathRelativeToBaseRepo is ${pathRelativeToBaseRepo}
-  url=${domain}/${repo}/tree/${remoteBranch}/${pathRelativeToBaseRepo} &&
-  # echo url is ${url} &&
-  open "${url}"
+    # Get the repo name and remove ".git" from the end
+    repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+    # Fallback to main branch
+    remoteBranch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo 'main') &&
+    # Remove origin prefix
+    remoteBranch=${remoteBranch#origin/} &&
+    currentDir=$PWD &&
+    gitTopLevel=$(git rev-parse --show-toplevel) &&
+    # Remove git base directory from the path.
+    pathRelativeToBaseRepo=${currentDir#${gitTopLevel}}/${1} &&
+    # echo Remote branch is ${remoteBranch} &&
+    # echo current Dir is ${currentDir} &&
+    # echo gitTopLevel is ${gitTopLevel} &&
+    # echo pathRelativeToBaseRepo is ${pathRelativeToBaseRepo}
+    url=${domain}/${repo}/tree/${remoteBranch}/${pathRelativeToBaseRepo} &&
+    # echo url is ${url} &&
+    open "${url}"
 }
 
-function stargazer()
-{
+function stargazer() {
   domain='https://starcharts.herokuapp.com/' &&
-  # Get the repo name and remove ".git" from the end
-  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
-  url=${domain}/${repo}
+    # Get the repo name and remove ".git" from the end
+    repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+    url=${domain}/${repo}
   open "${url}"
 }
 
 # Usage: ghpr <pr number>, will open the pull request on github.com. Respects repo name.
 # GitHub uses a single counter for pull requests and issues, so, even an issue can open via this mechanism.
-function ghpr()
-{
+function ghpr() {
   domain='https://github.com' &&
-  # Get the repo name and remove ".git" from the end
-  repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
-  url=${domain}/${repo}/pull/${1} &&
-  # echo url is ${url} &&
-  open "${url}"
+    # Get the repo name and remove ".git" from the end
+    repo=$(git config --get remote.origin.url | cut -d: -f2 | rev | cut -d. -f2- | rev) &&
+    url=${domain}/${repo}/pull/${1} &&
+    # echo url is ${url} &&
+    open "${url}"
 }
 
 alias ghpr='gh pr --me --link'
 alias ghissues="open https://github.com/issues/assigned"
 
 # Tree
-if [ ! -x "$(command -v tree 2>/dev/null)" ]
-then
+if [ ! -x "$(command -v tree 2>/dev/null)" ]; then
   alias treee="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 fi
 
@@ -890,7 +872,7 @@ if test -d $HOME/.fzf && [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
 
   # Auto-completion
-  [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
+  [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.bash" 2>/dev/null
   # Key bindings
   ########source "$HOME/.fzf/shell/key-bindings.bash"
 fi
@@ -900,15 +882,15 @@ fi
 
 # Command list aggregator.
 # Uses fuzzy search to allow searching of commamnds list.
-function do_command(){
-    unset MY_FIND_COMMAND
-    COMFILE="$METACFG_LOCATION/commands.md"
-    if [ -z "$1" ]; then
-        MY_FIND_COMMAND=`(get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf`
-    else
-        MY_FIND_COMMAND=`(get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf -q "$1" -1 -0`
-    fi
-    ${DRYRUN} eval $MY_FIND_COMMAND
+function do_command() {
+  unset MY_FIND_COMMAND
+  COMFILE="$METACFG_LOCATION/commands.md"
+  if [ -z "$1" ]; then
+    MY_FIND_COMMAND=$( (get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf)
+  else
+    MY_FIND_COMMAND=$( (get-history-lines && get-stored-command-lines $COMFILE) | sort -u | fzf -q "$1" -1 -0)
+  fi
+  ${DRYRUN} eval $MY_FIND_COMMAND
 }
 
 # Alias to shorten call to do_command
@@ -916,58 +898,58 @@ function do_command(){
 alias doco='do_command'
 
 # docker run
-function docker_run(){
-    unset DOCKOPTS IMAGENAME COMMANDS DOCKHOST ABODE
-    # Identify image name through selection from the list of images returned by
-    # 'docker image ls' command.
-    if [ -z "$1" ]; then
-        IMAGENAME=`docker image list | awk '{if(NR>1)print}'| fzf | awk '{print $1}'`
-    else
-        IMAGENAME=`docker image list | awk '{if(NR>1)print}'| fzf -q $1 -1 -0 | awk '{print $1}'`
-    fi
+function docker_run() {
+  unset DOCKOPTS IMAGENAME COMMANDS DOCKHOST ABODE
+  # Identify image name through selection from the list of images returned by
+  # 'docker image ls' command.
+  if [ -z "$1" ]; then
+    IMAGENAME=$(docker image list | awk '{if(NR>1)print}' | fzf | awk '{print $1}')
+  else
+    IMAGENAME=$(docker image list | awk '{if(NR>1)print}' | fzf -q $1 -1 -0 | awk '{print $1}')
+  fi
 
-    # Remote registry images results to empty IMAGENAME, user probably pressed
-    # <Esc> during the selection. This means a new image from remote registry.
-    # In such case, use the value initially provided by the user.
+  # Remote registry images results to empty IMAGENAME, user probably pressed
+  # <Esc> during the selection. This means a new image from remote registry.
+  # In such case, use the value initially provided by the user.
+  if [ -z "$IMAGENAME" ]; then
+    # revert value to original argument
+    IMAGENAME=$1
+  fi
+
+  # Fetch run command configuration through the docker.abode.md file.
+  COMFILE="$METACFG_LOCATION/docker.abode.md"
+  if [ -f "$COMFILE" ]; then
     if [ -z "$IMAGENAME" ]; then
-        # revert value to original argument
-        IMAGENAME=$1
-    fi
-
-    # Fetch run command configuration through the docker.abode.md file.
-    COMFILE="$METACFG_LOCATION/docker.abode.md"
-    if [ -f "$COMFILE" ]; then
-        if [ -z "$IMAGENAME" ]; then
-            ABODE=`get-stored-command-lines $COMFILE | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0`
-        else
-            ABODE=`get-stored-command-lines $COMFILE | grep $IMAGENAME | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0`
-        fi
-    fi
-
-    # Found a corresponding configuration, tokenize it and set to approriate variables.
-    if [ ! -z "$ABODE" ]; then
-        ABODE=$(echo $ABODE | tr -s " ")
-        OLDIFS=$IFS
-        IFS='|'
-        tokens=($ABODE)
-        IFS=$OLDIFS
-        DOCKHOST=$(echo ${tokens[0]} | tr -s " ")
-        IMAGENAME=$(echo ${tokens[1]} | tr -s " ")
-        DOCKOPTS=${tokens[2]}
-        COMMANDS=${tokens[3]}
-    fi
-
-    # Append run configuration from docker.abode and default.
-    DOCKOPTS=$(echo "$DOCKOPTS $DOCKER_DEFOPTIONS" | tr -s " ")
-    if [ ! -z "$DOCKHOST" ]; then
-        # do not use docker generated hostname
-        DOCKOPTS=$(echo "$DOCKOPTS -h $DOCKHOST -e META_IMAGEREF=$IMAGENAME")
+      ABODE=$(get-stored-command-lines $COMFILE | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0)
     else
-        # set META_IMAGEREF (used in PS1 identifier) same as image name
-        DOCKOPTS=$(echo "$DOCKOPTS -e META_IMAGEREF=$IMAGENAME")
+      ABODE=$(get-stored-command-lines $COMFILE | grep $IMAGENAME | fzf --prompt=Pattern: --header "HOSTNAME | IMAGE | OPTIONS | COMMAND" -1 -0)
     fi
-    DOCKOPTS=$(echo "$DOCKOPTS -w `pwd`")
-    ${DRYRUN} eval docker run $DOCKOPTS $IMAGENAME $COMMANDS
+  fi
+
+  # Found a corresponding configuration, tokenize it and set to approriate variables.
+  if [ ! -z "$ABODE" ]; then
+    ABODE=$(echo $ABODE | tr -s " ")
+    OLDIFS=$IFS
+    IFS='|'
+    tokens=($ABODE)
+    IFS=$OLDIFS
+    DOCKHOST=$(echo ${tokens[0]} | tr -s " ")
+    IMAGENAME=$(echo ${tokens[1]} | tr -s " ")
+    DOCKOPTS=${tokens[2]}
+    COMMANDS=${tokens[3]}
+  fi
+
+  # Append run configuration from docker.abode and default.
+  DOCKOPTS=$(echo "$DOCKOPTS $DOCKER_DEFOPTIONS" | tr -s " ")
+  if [ ! -z "$DOCKHOST" ]; then
+    # do not use docker generated hostname
+    DOCKOPTS=$(echo "$DOCKOPTS -h $DOCKHOST -e META_IMAGEREF=$IMAGENAME")
+  else
+    # set META_IMAGEREF (used in PS1 identifier) same as image name
+    DOCKOPTS=$(echo "$DOCKOPTS -e META_IMAGEREF=$IMAGENAME")
+  fi
+  DOCKOPTS=$(echo "$DOCKOPTS -w $(pwd)")
+  ${DRYRUN} eval docker run $DOCKOPTS $IMAGENAME $COMMANDS
 }
 
 alias cic='bind "set completion-ignore-case on"' # cic: Make tab-completion case-insensitive
@@ -983,7 +965,7 @@ alias vim="/usr/bin/vim -p"
 
 #if type -P nvim &>/dev/null; then
 if command -v nvim &>/dev/null; then
-#if hash nvim &>/dev/null; then
+  #if hash nvim &>/dev/null; then
   alias vi='nvim -p'
   alias vd='\nvim -d'
   alias vim='nvim -p'
@@ -1037,11 +1019,11 @@ alias jq='jq -C -S'
 alias ka="killall"
 
 ##export LESSHISTFILE=/dev/null
-alias less='less -r'                          # raw control characters
+alias less='less -r' # raw control characters
 #alias less='less -FSRXc'                    # Preferred 'less' implementation
 #export LESS="-R"
 export LESS="-eiRMX"
-alias less='less -R'                    # raw control characters, coloring, etc.
+alias less='less -R' # raw control characters, coloring, etc.
 
 # alias lsblk='lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,UUID'
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,TYPE,FSTYPE,SIZE,MOUNTPOINT,LABEL,UUID'
@@ -1078,16 +1060,17 @@ function _omb_alias_general_nano_init {
   if LANG=C command nano --help | \grep -q '^[[:space:]]*[-]W'; then
     alias nano='nano -W' && function _omb_alias_general_nano_init { command nano -W "$@"; }
   else
-    unalias nano 2>/dev/null; function _omb_alias_general_nano_init { command nano "$@"; }
+    unalias nano 2>/dev/null
+    function _omb_alias_general_nano_init { command nano "$@"; }
   fi &&
     _omb_alias_general_nano_init "$@"
 }
-alias nano='_omb_alias_general_nano_init'   # Preferred 'nano' implementation
+alias nano='_omb_alias_general_nano_init' # Preferred 'nano' implementation
 
 # open='xdg-open &>/dev/null'
 hash xdg-open &>/dev/null && alias open='xdg-open'
 
-alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+alias path='echo -e ${PATH//:/\\n}' # path:         Echo all executable Paths
 alias po="popd"
 alias pu="pushd"
 
@@ -1127,7 +1110,7 @@ alias shred="shred -zf"
 # no '-O ' option
 # UnZip 6.00 of 20 April 2009, by Info-ZIP, with modifications by Apple Inc.
 
-if command -v unzip 1>/dev/null && ! \unzip -v | grep -q 'Debian.\|Apple Inc' ; then alias unzip='unzip -O CP936'; fi
+if command -v unzip 1>/dev/null && ! \unzip -v | grep -q 'Debian.\|Apple Inc'; then alias unzip='unzip -O CP936'; fi
 
 test -x /opt/homebrew/opt/unzip/bin/unzip && alias unzip='/opt/homebrew/opt/unzip/bin/unzip -O CP936'
 
@@ -1139,7 +1122,7 @@ alias ua='uname -a && echo && uptime'
 #alias wget="wget -U 'noleak'"
 alias wget="wget --no-check-certificate -c --content-disposition"
 
-alias whence='type -a'                        # where, of a sort
+alias whence='type -a' # where, of a sort
 alias where="type -all"
 alias which='alias | which -a'
 #alias which="type -path"
@@ -1150,11 +1133,11 @@ alias which='alias | which -a'
 #displaying and accessing history of visited directories, up to 10 entries.
 #To use it, uncomment it, source this file and try 'cd --'.
 #acd_func 1.0.5, 10-nov-2004
-cd_func () {
+cd_func() {
   local x2 the_new_dir adir index
   local -i cnt
 
-  if [[ $1 ==  "--" ]]; then
+  if [[ $1 == "--" ]]; then
     dirs -v
     return 0
   fi
@@ -1178,7 +1161,7 @@ cd_func () {
 
   #
   # Now change to the new dir and add to the top of the stack
-  pushd "${the_new_dir}" > /dev/null
+  pushd "${the_new_dir}" >/dev/null
   [[ $? -ne 0 ]] && return 1
   the_new_dir=$(pwd)
 
@@ -1188,15 +1171,15 @@ cd_func () {
 
   #
   # Remove any other occurence of this dir, skipping the top of the stack
-#  for ((cnt=1; cnt <= 10; cnt++)); do
-#    x2=$(dirs +${cnt} 2>/dev/null)
-#    [[ $? -ne 0 ]] && return 0
-#    [[ ${x2:0:1} == '~' ]] && x2="${HOME}${x2:1}"
-#    if [[ "${x2}" == "${the_new_dir}" ]]; then
-#      popd -n +$cnt 2>/dev/null 1>/dev/null
-#      cnt=cnt-1
-#    fi
-#  done
+  #  for ((cnt=1; cnt <= 10; cnt++)); do
+  #    x2=$(dirs +${cnt} 2>/dev/null)
+  #    [[ $? -ne 0 ]] && return 0
+  #    [[ ${x2:0:1} == '~' ]] && x2="${HOME}${x2:1}"
+  #    if [[ "${x2}" == "${the_new_dir}" ]]; then
+  #      popd -n +$cnt 2>/dev/null 1>/dev/null
+  #      cnt=cnt-1
+  #    fi
+  #  done
 
   return 0
 }
@@ -1232,15 +1215,13 @@ alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Canonical hex dump; some systems have this symlinked
-[ "$BASH_VERSINFO" -ge "4" ] && type -t hd > /dev/null || alias hd="hexdump -C"
+[ "$BASH_VERSINFO" -ge "4" ] && type -t hd >/dev/null || alias hd="hexdump -C"
 
 # some more ls aliases
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
 
-#short-cut to the commands.
-alias c='clear'
 alias cargo='cargo -vv --color=auto'
 alias cg='grep -in --color -I'
 alias cgr='grep -in --color -rI'
@@ -1248,7 +1229,6 @@ alias gg='git grep -a -i'
 alias lt='ls -ltr'
 alias h='history  | tail -39 | more'
 alias hs='history | tail -40 | more'
-alias lc='locate'
 
 alias cl='TERM=xterm-color'
 alias cls='TERM=xterm-256color'
@@ -1257,7 +1237,6 @@ alias cls='TERM=xterm-256color'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 # program 'notify-send' is in libnotify-bin
-
 
 alias grubup="sudo update-grub"
 alias fixpacman="sudo rm /var/lib/pacman/db.lck"
@@ -1277,9 +1256,9 @@ alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias hw='hwinfo --short'                                   # Hardware Info
-alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB (expac must be installed)
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'			# List amount of -git packages
+alias hw='hwinfo --short'                          # Hardware Info
+alias big="expac -H M '%m\t%n' | sort -h | nl"     # Sort installed packages according to size in MB (expac must be installed)
+alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
 
 # Fix for foot terminfo not installed on most servers
 alias ssh="TERM=xterm-256color ssh"
@@ -1297,7 +1276,6 @@ alias tb='nc termbin.com 9999'
 # Replace yay with paru if installed
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
-
 alias secret.gen="head -2 /dev/urandom | sha1sum | base64"
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 
@@ -1313,11 +1291,11 @@ alias docker-compose='docker compose'
 # ls, color, etc.
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
@@ -1333,13 +1311,10 @@ alias l='ls -CF'
 #		a percent sign (`%') after each whiteout, and
 #		a vertical bar (`|') after each that is a FIFO.
 
-
-if [[ "`uname -s`" == "FreeBSD" ]]
-#if [[ "$OSTYPE" =~ *BSD ]]; then
-then
+if [[ "$(uname -s)" == "FreeBSD" ]]; then #if [[ "$OSTYPE" =~ *BSD ]]; then
   alias ls='ls -FG'
 elif [[ "$OSTYPE" =~ ^darwin ]]; then
-#elif [ "`uname -s`" == "Darwin" ]
+  #elif [ "`uname -s`" == "Darwin" ]
   # uname also works
   alias ls="command ls -bFG"
 else # Assume Linux
@@ -1352,10 +1327,9 @@ alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lA'
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias mv="mv -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
+alias cp="cp -i"     # confirm before overwriting something
+alias mv="mv -i"     # confirm before overwriting something
+alias df='df -h'     # human-readable sizes
+alias free='free -m' # show sizes in MB
 alias np='nano -w PKGBUILD'
 #alias more=less
-
