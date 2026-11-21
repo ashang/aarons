@@ -386,11 +386,11 @@ if [[ -r /etc/debian_version ]]; then
 fi
 
 # alias tail='tail -f'
-# In SSH, tmux status bar color may be incorrect without setting TERM to screen-256color.
 
+# In SSH, tmux status bar color may be incorrect without setting TERM to screen-256color.
 #alias tmux="\tmux -2 new-session -s $(hostname -s)-$(date +%s)"
-#alias tmux="\tmux -2 new-session -s $HOSTNAME-$(date +%s)"
-alias tad='\tmux a -d'
+alias tmux="\tmux -2 new-session -s $HOSTNAME-$(date +%s)"
+\ps a | grep -q tmux && alias tad='\tmux a -d'
 
 hash gsed &>/dev/null && alias sed='gsed'
 
@@ -723,6 +723,7 @@ alias big="expac -H M '%m\t%n' | sort -h | nl" # Sort packages in MB
 
 # Replace ls with exa
 if hash exa &>/dev/null; then
+  alias tree='exa --tree --icons --color=always'
   alias exa='exa -B' &&
     alias ls='exa --group-directories-first --icons' &&
     alias la='exa -a --color=auto --group-directories-first --icons' &&
@@ -1278,8 +1279,6 @@ alias tb='nc termbin.com 9999'
 
 alias secret.gen="head -2 /dev/urandom | sha1sum | base64"
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-
-alias tree='exa --tree --icons --color=always'
 
 ## Command `batcat` provided in `deb` package `bat`
 ## Pretty printed python,html,css etc. code.
