@@ -112,7 +112,7 @@ short_pwd() {
 
 # echo "$(basename "$(dirname "$PWD")")/${PWD##*/}"
 
-PATH=/opt/homebrew/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec
 export PATH
 
 #path="$PWD"
@@ -901,10 +901,12 @@ function prompt_git() {
 }
 
 # brew
+prependpath ${HOMEBREW_PREFIX}/bin
+
 if hash brew &>/dev/null; then
   #export HOMEBREW_PREFIX="$(brew --prefix)"
-  export HOMEBREW_PREFIX="$HOME/.brew"
-  prependpath ${HOMEBREW_PREFIX}/bin
+  # THERE ARE DEFAULTs
+  #export HOMEBREW_PREFIX="$HOME/.brew"
   prependpath "$(brew --prefix)/opt/coreutils/libexec/gnubin"
 
   export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
