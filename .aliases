@@ -390,7 +390,7 @@ fi
 # In SSH, tmux status bar color may be incorrect without setting TERM to screen-256color.
 #alias tmux="\tmux -2 new-session -s $(hostname -s)-$(date +%s)"
 alias tmux="\tmux -2 new-session -s $HOSTNAME-$(date +%s)"
-\ps a | grep -q tmux && alias tad='\tmux a -d'
+pgrep tmux &>/dev/null && alias tad='\tmux a -d' || alias tad='\tmux'
 
 hash gsed &>/dev/null && alias sed='gsed'
 
